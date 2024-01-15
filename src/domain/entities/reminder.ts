@@ -1,8 +1,9 @@
-import { Entity } from '../core/entities/entity'
-import { UniqueEntityId } from '../core/entities/unique-entity-id'
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
 interface ReminderProps {
   name: string
+  userId: UniqueEntityId
   accountId: UniqueEntityId
   categoryId: UniqueEntityId
   frequency:
