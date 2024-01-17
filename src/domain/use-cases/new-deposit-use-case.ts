@@ -3,33 +3,31 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Transaction } from '../entities/transaction'
 import { TransactionRepository } from '../repositories/transaction-repository'
 
-interface NewTransactionUseCaseRequest {
+interface NewDepositUseCaseRequest {
   accountId: string
   categoryId: string
   userId: string
-  type: 'deposit' | 'spent'
   value: number
   description?: string
-  date: Date
+  date?: Date
 }
-// interface NewTransactionUseCaseResponse {
-//   transaction: Transaction
-// }
+interface NewDepositUseCaseResponse {
+  transaction: Transaction
+}
 
-export class NewTransactionUseCase {
+export class NewDepositUseCase {
   constructor(private transactionRepository: TransactionRepository) {}
 
   async execute({
     accountId,
     categoryId,
     date,
-    type,
     value,
     description,
     userId,
-  }: NewTransactionUseCaseRequest) {
+  }: NewDepositUseCaseRequest): Promise<NewDepositUseCaseResponse> {
     const transaction = Transaction.crete({
-      type,
+      type: 'deposit',
       value,
       date,
       description,
