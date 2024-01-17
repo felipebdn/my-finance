@@ -7,6 +7,7 @@ import { AccountRepository } from '../repositories/account-repository'
 import { CategoryRepository } from '../repositories/category-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
 import { InsufficientBalanceError } from './errors/insufficient-balance-error'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface NewSpentUseCaseRequest {
   accountId: string
@@ -17,7 +18,7 @@ interface NewSpentUseCaseRequest {
   date?: Date
 }
 type NewSpentUseCaseResponse = Either<
-  ResourceNotFoundError | InsufficientBalanceError,
+  ResourceNotFoundError | NotAllowedError | InsufficientBalanceError,
   {
     transaction: Transaction
   }
@@ -42,6 +43,10 @@ export class NewSpentUseCase {
 
     if (!account) {
       return left(new ResourceNotFoundError('account'))
+    }
+
+    if (account.userId.toValue() !== userId) {
+      return left(new NotAllowedError())
     }
 
     if (account.value < value) {

@@ -4,4 +4,5 @@ export interface AccountRepository {
   create(account: Account): Promise<void>
   save(account: Account): Promise<void>
   findById(id: string): Promise<Account | null>
+  findManyByUserId(userId: string): Promise<Account[]>
 }

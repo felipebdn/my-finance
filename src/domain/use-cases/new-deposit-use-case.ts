@@ -1,7 +1,11 @@
+import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { Transaction } from '../entities/transaction'
+import { AccountRepository } from '../repositories/account-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface NewDepositUseCaseRequest {
   accountId: string
@@ -11,12 +15,16 @@ interface NewDepositUseCaseRequest {
   description?: string
   date?: Date
 }
-interface NewDepositUseCaseResponse {
-  transaction: Transaction
-}
+type NewDepositUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  unknown
+>
 
 export class NewDepositUseCase {
-  constructor(private transactionRepository: TransactionRepository) {}
+  constructor(
+    private transactionRepository: TransactionRepository,
+    private accountRepository: AccountRepository,
+  ) {}
 
   async execute({
     accountId,
@@ -26,6 +34,16 @@ export class NewDepositUseCase {
     description,
     userId,
   }: NewDepositUseCaseRequest): Promise<NewDepositUseCaseResponse> {
+    const account = await this.accountRepository.findById(accountId)
+
+    if (!account) {
+      return left(new ResourceNotFoundError('account'))
+    }
+
+    if (account.userId.toValue() !== userId) {
+      return left(new NotAllowedError())
+    }
+
     const transaction = Transaction.crete({
       type: 'deposit',
       value,
@@ -38,6 +56,6 @@ export class NewDepositUseCase {
 
     await this.transactionRepository.create(transaction)
 
-    return { transaction }
+    return right({})
   }
 }

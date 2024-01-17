@@ -15,11 +15,13 @@ export class InMemoryAccountRepository implements AccountRepository {
 
   async findById(id: string) {
     const account = this.items.find((item) => item.id.toValue() === id)
-
     if (!account) {
       return null
     }
-
     return account
+  }
+
+  async findManyByUserId(userId: string): Promise<Account[]> {
+    return this.items.filter((item) => item.userId.toValue() === userId)
   }
 }
