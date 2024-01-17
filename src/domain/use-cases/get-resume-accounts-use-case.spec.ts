@@ -1,5 +1,4 @@
 import { makeAccount } from 'test/factories/make-account'
-import { makeCategory } from 'test/factories/make-category'
 import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-repository'
 import { expect } from 'vitest'
 
