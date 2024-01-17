@@ -1,5 +1,4 @@
-import { Either, left, right } from '@/core/either'
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
+import { Either, right } from '@/core/either'
 
 import { Account } from '../entities/account'
 import { AccountRepository } from '../repositories/account-repository'
@@ -9,7 +8,7 @@ interface GetResumeUseCaseRequest {
 }
 
 type GetResumeUseCaseResponse = Either<
-  ResourceNotFoundError,
+  unknown,
   {
     accounts: Account[]
   }
@@ -22,10 +21,6 @@ export class GetResumeUseCase {
     userId,
   }: GetResumeUseCaseRequest): Promise<GetResumeUseCaseResponse> {
     const accounts = await this.accountRepository.findManyByUserId(userId)
-
-    if (!(accounts.length > 0)) {
-      return left(new ResourceNotFoundError())
-    }
 
     return right({ accounts })
   }
