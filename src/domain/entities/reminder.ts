@@ -77,6 +77,46 @@ export class Reminder extends Entity<ReminderProps> {
     return this.props.updatedAt
   }
 
+  set categoryId(id: UniqueEntityId) {
+    this.props.categoryId = id
+  }
+
+  set accountId(id: UniqueEntityId) {
+    this.props.accountId = id
+  }
+
+  set date(date: Date) {
+    this.props.date = date
+  }
+
+  set expires(expires: Date) {
+    this.props.expires = expires
+  }
+
+  set frequency(frequency: FrequencyType) {
+    this.props.frequency = frequency
+  }
+
+  set name(name: string) {
+    this.props.name = name
+  }
+
+  set type(type: typeTransaction) {
+    this.props.type = type
+  }
+
+  set value(value: number) {
+    this.props.value = value
+  }
+
+  set description(description: string | undefined) {
+    this.props.description = description
+  }
+
+  touch() {
+    this.props.updatedAt = new Date()
+  }
+
   static crete(
     props: Optional<ReminderProps, 'createdAt'>,
     id?: UniqueEntityId,

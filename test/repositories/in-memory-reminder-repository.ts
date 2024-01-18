@@ -9,6 +9,19 @@ export class InMemoryReminderRepository implements ReminderRepository {
     this.items.push(reminder)
   }
 
+  async save(reminder: Reminder) {
+    const index = this.items.findIndex((item) => item.id === reminder.id)
+    this.items[index] = reminder
+  }
+
+  async findById(id: string) {
+    const reminder = this.items.find((item) => item.id.toValue() === id)
+    if (!reminder) {
+      return null
+    }
+    return reminder
+  }
+
   async findManyByUserId(orderId: string, type?: typeTransaction) {
     if (type) {
       const reminders = this.items.filter(

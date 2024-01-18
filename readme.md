@@ -8,7 +8,7 @@
 - [x] O usuário pode visualizar seus lembretes de pagamento.
 - [x] O usuário pode cria uma categoria de depósito e de gasto.
 - [x] O usuário pode editar uma categoria de depósito ou gasto.
-- [ ] O usuário pode apagar uma categoria de depósito ou gasto.
+- [x] O usuário pode apagar uma categoria de depósito ou gasto.
 - [ ] O usuário pode editar um lembrete de pagamento.
 - [ ] O usuário pode apagar um lembrete de pagamento.
 - [ ] O usuário pode editar uma transação.
