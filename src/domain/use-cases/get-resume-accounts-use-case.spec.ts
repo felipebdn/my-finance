@@ -9,13 +9,13 @@ import { GetResumeUseCase } from './get-resume-accounts-use-case'
 let inMemoryAccountRepository: InMemoryAccountRepository
 let sut: GetResumeUseCase
 
-describe('New Transaction', () => {
+describe('Get Resume Accounts', () => {
   beforeEach(() => {
     inMemoryAccountRepository = new InMemoryAccountRepository()
     sut = new GetResumeUseCase(inMemoryAccountRepository)
   })
 
-  it('should be able to make a new transaction', async () => {
+  it('should be able to get resume of accounts', async () => {
     for (let i = 0; i < 3; i++) {
       const account = makeAccount({
         userId: new UniqueEntityId('user-01'),

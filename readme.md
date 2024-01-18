@@ -1,6 +1,6 @@
 - [x] O usuário pode criar uma nova transação.
 - [x] O usuário deve poder obter um resumo da sua conta.
-- [ ] O usuário pode visualizar uma transação única.
+- [x] O usuário pode visualizar uma transação única.
 - [ ] O usuário pode visualizar as transações de depósito e de gasto de cada conta.
 - [ ] O usuário pode criar mais uma conta de saldo.
 - [ ] O usuário pode fazer uma transferência entre contas.

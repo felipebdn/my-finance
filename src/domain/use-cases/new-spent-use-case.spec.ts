@@ -17,7 +17,7 @@ let inMemoryAccountRepository: InMemoryAccountRepository
 let inMemoryCategoryRepository: InMemoryCategoryRepository
 let sut: NewSpentUseCase
 
-describe('New Transaction', () => {
+describe('New Spent', () => {
   beforeEach(() => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
     inMemoryAccountRepository = new InMemoryAccountRepository()
@@ -29,7 +29,7 @@ describe('New Transaction', () => {
     )
   })
 
-  it('should be able to make a new transaction', async () => {
+  it('should be able to make a new spent', async () => {
     const account = makeAccount({
       userId: new UniqueEntityId('user-01'),
       value: 100,
@@ -54,7 +54,7 @@ describe('New Transaction', () => {
     }
     expect(inMemoryAccountRepository.items[0].value).toBe(69.5)
   })
-  it('should not be able to make a new transaction, account not found', async () => {
+  it('should not be able to make a new spent, account not found', async () => {
     const account = makeAccount({
       userId: new UniqueEntityId('user-01'),
       value: 100,
@@ -70,7 +70,7 @@ describe('New Transaction', () => {
     expect(result.isLeft()).toBeTruthy()
     expect(result.value).toBeInstanceOf(ResourceNotFoundError)
   })
-  it('should not be able to make a new transaction, unauthorized user', async () => {
+  it('should not be able to make a new spent, unauthorized user', async () => {
     const account = makeAccount({
       userId: new UniqueEntityId('user-01'),
       value: 100,
@@ -92,7 +92,7 @@ describe('New Transaction', () => {
     expect(result.isLeft()).toBeTruthy()
     expect(result.value).toBeInstanceOf(NotAllowedError)
   })
-  it('should not be able to make a new transaction, insufficient balance', async () => {
+  it('should not be able to make a new spent, insufficient balance', async () => {
     const account = makeAccount({
       userId: new UniqueEntityId('user-01'),
       value: 30,
@@ -114,7 +114,7 @@ describe('New Transaction', () => {
     expect(result.isLeft()).toBeTruthy()
     expect(result.value).toBeInstanceOf(InsufficientBalanceError)
   })
-  it('should not be able to make a new transaction, category not found', async () => {
+  it('should not be able to make a new spent, category not found', async () => {
     const account = makeAccount({
       userId: new UniqueEntityId('user-01'),
       value: 100,
