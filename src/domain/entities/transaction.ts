@@ -2,11 +2,13 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+export type typeTransaction = 'deposit' | 'spent'
+
 export interface TransactionProps {
   userId: UniqueEntityId
   accountId: UniqueEntityId
   categoryId: UniqueEntityId
-  type: 'deposit' | 'spent'
+  type: typeTransaction
   value: number
   description?: string
   date: Date
