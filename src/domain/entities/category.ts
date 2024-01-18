@@ -33,6 +33,18 @@ export class Category extends Entity<CategoryProps> {
     return this.props.updatedAt
   }
 
+  set name(name: string) {
+    this.props.name = name
+  }
+
+  set type(type: typeTransaction) {
+    this.props.type = type
+  }
+
+  touch() {
+    this.props.updatedAt = new Date()
+  }
+
   static crete(
     props: Optional<CategoryProps, 'createdAt'>,
     id?: UniqueEntityId,

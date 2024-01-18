@@ -6,7 +6,7 @@
 - [x] O usuário pode fazer uma transferência entre contas.
 - [x] O usuário pode criar um lembrete de de pagamento.
 - [x] O usuário pode visualizar seus lembretes de pagamento.
-- [ ] O usuário pode cria uma categoria de depósito e de gasto.
+- [x] O usuário pode cria uma categoria de depósito e de gasto.
 - [ ] O usuário pode editar uma categoria de depósito ou gasto.
 - [ ] O usuário pode apagar uma categoria de depósito ou gasto.
 - [ ] O usuário pode editar um lembrete de pagamento.

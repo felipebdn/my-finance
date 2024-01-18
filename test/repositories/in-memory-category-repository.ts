@@ -4,16 +4,23 @@ import { CategoryRepository } from '@/domain/repositories/category-repository'
 export class InMemoryCategoryRepository implements CategoryRepository {
   public items: Category[] = []
 
+  async create(category: Category) {
+    this.items.push(category)
+  }
+
+  async save(category: Category) {
+    const categoryIndex = this.items.findIndex(
+      (item) => item.id === category.id,
+    )
+    this.items[categoryIndex] = category
+  }
+
   async findByName(name: string) {
     const category = this.items.find((item) => item.name === name)
     if (!category) {
       return null
     }
     return category
-  }
-
-  async create(category: Category): Promise<void> {
-    this.items.push(category)
   }
 
   async findById(id: string) {

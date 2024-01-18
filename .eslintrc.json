@@ -3,6 +3,7 @@
   "plugins": ["simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
-    "no-useless-constructor":"off"
+    "no-useless-constructor":"off",
+    "@typescript-eslint/adjacent-overload-signatures":"off"
   }
 }
