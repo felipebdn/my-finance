@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
-    "test:watch":"vitest"
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +21,8 @@
     "typescript": "^5.3.3",
     "vite-tsconfig-paths": "^4.2.3",
     "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
   }
 }

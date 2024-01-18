@@ -9,7 +9,7 @@ export interface TransactionProps {
   type: 'deposit' | 'spent'
   value: number
   description?: string
-  date?: Date
+  date: Date
   createdAt: Date
   updatedAt?: Date
 }
@@ -52,12 +52,13 @@ export class Transaction extends Entity<TransactionProps> {
   }
 
   static crete(
-    props: Optional<TransactionProps, 'createdAt'>,
+    props: Optional<TransactionProps, 'createdAt' | 'date'>,
     id?: UniqueEntityId,
   ) {
     const transaction = new Transaction(
       {
         ...props,
+        date: props.date ?? new Date(),
         createdAt: new Date(),
       },
       id,
