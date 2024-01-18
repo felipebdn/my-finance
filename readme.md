@@ -2,8 +2,7 @@
 - [x] O usuário deve poder obter um resumo da sua conta.
 - [x] O usuário pode visualizar uma transação única.
 - [x] O usuário pode visualizar as transações de depósito e de gasto de cada conta.
-- [ ] refatora caso de uso get-resume-accounts-use-case
-- [ ] O usuário pode criar mais uma conta de saldo.
+- [x] O usuário pode criar mais uma conta de saldo.
 - [ ] O usuário pode fazer uma transferência entre contas.
 - [ ] O usuário pode criar um lembrete de de pagamento.
 - [ ] O usuário pode visualizar seus lembretes de pagamento.
