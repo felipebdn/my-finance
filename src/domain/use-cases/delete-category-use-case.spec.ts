@@ -15,7 +15,7 @@ let inMemoryReminderRepository: InMemoryReminderRepository
 let inMemoryTransactionRepository: InMemoryTransactionRepository
 let sut: DeleteCategoryUseCase
 
-describe('Create Category', () => {
+describe('Delete Category', () => {
   beforeEach(() => {
     inMemoryCategoryRepository = new InMemoryCategoryRepository()
     inMemoryReminderRepository = new InMemoryReminderRepository()
@@ -27,7 +27,7 @@ describe('Create Category', () => {
     )
   })
 
-  it('should be able to create a new category', async () => {
+  it('should be able to delete a category and others entities that depend on the category', async () => {
     const category = makeCategory({
       userId: new UniqueEntityId('user-01'),
     })
@@ -53,5 +53,33 @@ describe('Create Category', () => {
     expect(inMemoryCategoryRepository.items).length(0)
     expect(inMemoryReminderRepository.items).length(0)
     expect(inMemoryTransactionRepository.items).length(0)
+  })
+
+  it('should be able to delete a category and without deleting entities that depended on the category', async () => {
+    const category = makeCategory({
+      userId: new UniqueEntityId('user-01'),
+    })
+    inMemoryCategoryRepository.items.push(category)
+    const reminder = makeReminder({
+      userId: new UniqueEntityId('user-01'),
+      categoryId: category.id,
+    })
+    inMemoryReminderRepository.items.push(reminder)
+    const transaction = makeTransaction({
+      userId: new UniqueEntityId('user-01'),
+      categoryId: category.id,
+    })
+    inMemoryTransactionRepository.items.push(transaction)
+
+    const result = await sut.execute({
+      userId: 'user-01',
+      categoryId: category.id.toValue(),
+      deleteReminders: false,
+      deleteTransactions: false,
+    })
+    expect(result.isRight()).toBeTruthy()
+    expect(inMemoryCategoryRepository.items).length(0)
+    expect(inMemoryReminderRepository.items).length(1)
+    expect(inMemoryTransactionRepository.items).length(1)
   })
 })
