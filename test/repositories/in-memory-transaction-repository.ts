@@ -58,4 +58,10 @@ export class InMemoryTransactionRepository implements TransactionRepository {
 
     return transactions
   }
+
+  async deleteManyBy(categoryId: string) {
+    this.items = this.items.filter(
+      (item) => item.categoryId.toValue() !== categoryId,
+    )
+  }
 }

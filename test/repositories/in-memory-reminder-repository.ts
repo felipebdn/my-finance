@@ -5,6 +5,10 @@ import { ReminderRepository } from '@/domain/repositories/reminder-repository'
 export class InMemoryReminderRepository implements ReminderRepository {
   public items: Reminder[] = []
 
+  async create(reminder: Reminder): Promise<void> {
+    this.items.push(reminder)
+  }
+
   async findManyByUserId(orderId: string, type?: typeTransaction) {
     if (type) {
       const reminders = this.items.filter(
@@ -17,7 +21,9 @@ export class InMemoryReminderRepository implements ReminderRepository {
     }
   }
 
-  async create(reminder: Reminder): Promise<void> {
-    this.items.push(reminder)
+  async deleteManyByCategoryId(categoryId: string) {
+    this.items = this.items.filter(
+      (item) => item.categoryId.toValue() !== categoryId,
+    )
   }
 }

@@ -15,6 +15,12 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     this.items[categoryIndex] = category
   }
 
+  async delete(category: Category): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === category.id)
+
+    this.items.splice(itemIndex, 1)
+  }
+
   async findByName(name: string) {
     const category = this.items.find((item) => item.name === name)
     if (!category) {

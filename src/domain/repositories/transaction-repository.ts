@@ -2,6 +2,7 @@ import { Transaction } from '../entities/transaction'
 
 export interface TransactionRepository {
   create(transaction: Transaction): Promise<void>
+  deleteManyBy(categoryId: string): Promise<void>
   findById(id: string): Promise<Transaction | null>
   findManyByAccountId(
     type: 'deposit' | 'spent',
