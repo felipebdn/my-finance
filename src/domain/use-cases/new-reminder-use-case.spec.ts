@@ -33,7 +33,7 @@ describe('New Reminder', () => {
     const category = makeCategory({
       userId: new UniqueEntityId('user-01'),
     })
-    inMemoryCategoryRepository.itens.push(category)
+    inMemoryCategoryRepository.items.push(category)
 
     const result = await sut.execute({
       accountId: account.id.toValue(),

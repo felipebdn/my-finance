@@ -39,7 +39,7 @@ describe('New Spent', () => {
     const category = makeCategory({
       type: 'spent',
     })
-    inMemoryCategoryRepository.itens.push(category)
+    inMemoryCategoryRepository.items.push(category)
 
     const result = await sut.execute({
       accountId: account.id.toValue(),
@@ -80,7 +80,7 @@ describe('New Spent', () => {
     const category = makeCategory({
       type: 'spent',
     })
-    inMemoryCategoryRepository.itens.push(category)
+    inMemoryCategoryRepository.items.push(category)
 
     const result = await sut.execute({
       accountId: account.id.toValue(),
@@ -102,7 +102,7 @@ describe('New Spent', () => {
     const category = makeCategory({
       type: 'spent',
     })
-    inMemoryCategoryRepository.itens.push(category)
+    inMemoryCategoryRepository.items.push(category)
 
     const result = await sut.execute({
       accountId: account.id.toValue(),
