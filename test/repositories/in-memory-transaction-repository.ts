@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 
-import { Transaction } from '@/domain/entities/transaction'
+import { Transaction, typeTransaction } from '@/domain/entities/transaction'
 import { TransactionRepository } from '@/domain/repositories/transaction-repository'
 
 dayjs.extend(isBetween)
@@ -30,6 +30,25 @@ export class InMemoryTransactionRepository implements TransactionRepository {
       return null
     }
     return transaction
+  }
+
+  async findManyByCategory(
+    categoryId: string,
+    accountIds: string[],
+    type: typeTransaction,
+    userId: string,
+  ) {
+    const transactions = this.items
+      .filter(
+        (item) =>
+          item.categoryId.toValue() === categoryId &&
+          accountIds.includes(item.accountId.toValue()) &&
+          item.type === type &&
+          item.userId.toValue() === userId,
+      )
+      .sort((a, b) => b.date.getTime() - a.date.getTime())
+
+    return transactions
   }
 
   async findManyByFilter(

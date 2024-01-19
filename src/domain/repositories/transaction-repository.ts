@@ -1,4 +1,4 @@
-import { Transaction } from '../entities/transaction'
+import { Transaction, typeTransaction } from '../entities/transaction'
 
 export interface TransactionRepository {
   create(transaction: Transaction): Promise<void>
@@ -8,15 +8,21 @@ export interface TransactionRepository {
   deleteManyByAccountId(accountId: string): Promise<void>
   findById(id: string): Promise<Transaction | null>
   findManyByAccountId(accountId: string): Promise<Transaction[]>
+  findManyByCategory(
+    categoryId: string,
+    accountIds: string[],
+    type: typeTransaction,
+    userId: string,
+  ): Promise<Transaction[]>
   findManyByFilter(
-    type: 'deposit' | 'spent',
+    type: typeTransaction,
     userId: string,
     accountId: string,
     inDate: Date,
     outDate: Date,
   ): Promise<Transaction[]>
   findManyByUserId(
-    type: 'deposit' | 'spent',
+    type: typeTransaction,
     userId: string,
     inDate: Date,
     outDate: Date,
