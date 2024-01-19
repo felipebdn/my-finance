@@ -9,16 +9,21 @@ dayjs.extend(isBetween)
 export class InMemoryTransactionRepository implements TransactionRepository {
   public items: Transaction[] = []
 
+  async create(transaction: Transaction) {
+    this.items.push(transaction)
+  }
+
+  async save(transaction: Transaction) {
+    const index = this.items.findIndex((item) => item.id === transaction.id)
+    this.items[index] = transaction
+  }
+
   async findById(id: string) {
     const transaction = this.items.find((item) => item.id.toValue() === id)
     if (!transaction) {
       return null
     }
     return transaction
-  }
-
-  async create(transaction: Transaction) {
-    this.items.push(transaction)
   }
 
   async findManyByAccountId(

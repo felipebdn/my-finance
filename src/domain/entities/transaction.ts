@@ -53,6 +53,34 @@ export class Transaction extends Entity<TransactionProps> {
     return this.props.updatedAt
   }
 
+  set accountId(id: UniqueEntityId) {
+    this.props.accountId = id
+  }
+
+  set categoryId(id: UniqueEntityId) {
+    this.props.categoryId = id
+  }
+
+  set date(date: Date) {
+    this.props.date = date
+  }
+
+  set description(description: string | undefined) {
+    this.props.description = description
+  }
+
+  set type(type: typeTransaction) {
+    this.props.type = type
+  }
+
+  set value(value: number) {
+    this.props.value = value
+  }
+
+  touch() {
+    this.props.updatedAt = new Date()
+  }
+
   static crete(
     props: Optional<TransactionProps, 'createdAt' | 'date'>,
     id?: UniqueEntityId,
