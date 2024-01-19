@@ -17,5 +17,5 @@
 - [x] O usuário pode visualizar o histórico de transferências.
 - [x] O usuário pode apagar uma transferência.
 - [x] O usuário pode listar todas as transações de determinada categoria.
-- [ ] O usuário pode se cadastrar na aplicação.
+- [x] O usuário pode se cadastrar na aplicação.
 - [ ] O usuário pode fazer login na aplicação.
