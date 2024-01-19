@@ -18,6 +18,12 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     this.items[index] = transaction
   }
 
+  async delete(transaction: Transaction) {
+    const itemIndex = this.items.findIndex((item) => item.id === transaction.id)
+
+    this.items.splice(itemIndex, 1)
+  }
+
   async findById(id: string) {
     const transaction = this.items.find((item) => item.id.toValue() === id)
     if (!transaction) {
