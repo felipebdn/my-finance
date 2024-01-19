@@ -32,7 +32,7 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     return transaction
   }
 
-  async findManyByAccountId(
+  async findManyByFilter(
     type: 'deposit' | 'spent',
     userId: string,
     accountId: string,
@@ -70,9 +70,24 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     return transactions
   }
 
-  async deleteManyBy(categoryId: string) {
+  async deleteManyByCategoryId(categoryId: string) {
     this.items = this.items.filter(
       (item) => item.categoryId.toValue() !== categoryId,
     )
+  }
+
+  async deleteManyByAccountId(accountId: string) {
+    const transactions = this.items.filter(
+      (item) => item.accountId.toValue() !== accountId,
+    )
+
+    this.items = transactions
+  }
+
+  async findManyByAccountId(accountId: string) {
+    const transactions = this.items.filter(
+      (item) => item.accountId.toValue() === accountId,
+    )
+    return transactions
   }
 }

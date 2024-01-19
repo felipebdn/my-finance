@@ -41,7 +41,7 @@ export class DeleteCategoryUseCase {
       await this.reminderRepository.deleteManyByCategoryId(categoryId)
     }
     if (deleteTransactions) {
-      await this.transactionRepository.deleteManyBy(categoryId)
+      await this.transactionRepository.deleteManyByCategoryId(categoryId)
     }
 
     await this.categoryRepository.delete(category)

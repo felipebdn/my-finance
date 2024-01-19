@@ -7,5 +7,6 @@ export interface ReminderRepository {
   findById(id: string): Promise<Reminder | null>
   findManyByUserId(orderId: string, type?: typeTransaction): Promise<Reminder[]>
   deleteManyByCategoryId(categoryId: string): Promise<void>
+  deleteManyByAccountId(AccountId: string): Promise<void>
   deleteById(reminder: Reminder): Promise<void>
 }

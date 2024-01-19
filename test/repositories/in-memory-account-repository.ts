@@ -4,13 +4,19 @@ import { AccountRepository } from '@/domain/repositories/account-repository'
 export class InMemoryAccountRepository implements AccountRepository {
   public items: Account[] = []
 
-  async save(account: Account): Promise<void> {
+  async save(account: Account) {
     const findIndex = this.items.findIndex((item) => item.id === account.id)
     this.items[findIndex] = account
   }
 
-  async create(account: Account): Promise<void> {
+  async create(account: Account) {
     this.items.push(account)
+  }
+
+  async delete(account: Account) {
+    const itemIndex = this.items.findIndex((item) => item.id === account.id)
+
+    this.items.splice(itemIndex, 1)
   }
 
   async findById(id: string) {
@@ -21,11 +27,11 @@ export class InMemoryAccountRepository implements AccountRepository {
     return account
   }
 
-  async findManyByUserId(userId: string): Promise<Account[]> {
+  async findManyByUserId(userId: string) {
     return this.items.filter((item) => item.userId.toValue() === userId)
   }
 
-  async findByName(name: string): Promise<Account | null> {
+  async findByName(name: string) {
     const account = this.items.find((item) => item.name === name)
     if (!account) {
       return null

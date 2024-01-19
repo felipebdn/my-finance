@@ -45,4 +45,11 @@ export class InMemoryReminderRepository implements ReminderRepository {
 
     this.items.splice(itemIndex, 1)
   }
+
+  async deleteManyByAccountId(AccountId: string) {
+    const reminders = this.items.filter(
+      (item) => item.accountId.toValue() !== AccountId,
+    )
+    this.items = reminders
+  }
 }

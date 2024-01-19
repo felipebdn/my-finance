@@ -29,7 +29,7 @@ export class ListTransactionWithFilter {
     outDate,
   }: ListTransactionWithFilterRequest): Promise<ListTransactionWithFilterResponse> {
     if (accountId) {
-      const transactions = await this.transactionRepository.findManyByAccountId(
+      const transactions = await this.transactionRepository.findManyByFilter(
         type as 'deposit' | 'spent',
         userId,
         accountId,

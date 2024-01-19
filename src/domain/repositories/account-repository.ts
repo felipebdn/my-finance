@@ -6,4 +6,5 @@ export interface AccountRepository {
   findById(id: string): Promise<Account | null>
   findByName(name: string): Promise<Account | null>
   findManyByUserId(userId: string): Promise<Account[]>
+  delete(account: Account): Promise<void>
 }

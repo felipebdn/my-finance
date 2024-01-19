@@ -7,6 +7,7 @@ export interface TransferProps {
   destinyId: UniqueEntityId
   referentId: UniqueEntityId
   value: number
+  date: Date
   description?: string
   createdAt: Date
   updatedAt?: Date
@@ -29,6 +30,10 @@ export class Transfer extends Entity<TransferProps> {
     return this.props.value
   }
 
+  get date() {
+    return this.props.date
+  }
+
   get description() {
     return this.props.description
   }
@@ -42,12 +47,13 @@ export class Transfer extends Entity<TransferProps> {
   }
 
   static crete(
-    props: Optional<TransferProps, 'createdAt'>,
+    props: Optional<TransferProps, 'createdAt' | 'date'>,
     id?: UniqueEntityId,
   ) {
     const transfer = new Transfer(
       {
         ...props,
+        date: props.date ?? new Date(),
         createdAt: new Date(),
       },
       id,
