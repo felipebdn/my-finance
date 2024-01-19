@@ -4,19 +4,23 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
   Reminder,
   ReminderProps,
-} from '@/domain/financy/interprise/entities/reminder'
+} from '@/domain/finance/enterprise/entities/reminder'
 
 export function makeReminder(
   override?: Partial<ReminderProps>,
   id?: UniqueEntityId,
 ) {
-  const reminder = Reminder.crete(
+  const reminder = Reminder.create(
     {
       accountId: new UniqueEntityId(),
       categoryId: new UniqueEntityId(),
-      userId: new UniqueEntityId(),
+      date: new Date(),
+      expires: new Date(),
       frequency: 'daily',
-      name: faker.person.fullName(),
+      name: faker.lorem.words(2),
+      type: 'deposit',
+      userId: new UniqueEntityId(),
+      value: faker.number.float({ precision: 0.01 }),
       ...override,
     },
     id,

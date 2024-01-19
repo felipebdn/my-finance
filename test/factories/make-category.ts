@@ -4,7 +4,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
   Category,
   CategoryProps,
-} from '@/domain/financy/interprise/entities/category'
+} from '@/domain/finance/enterprise/entities/category'
 
 export function makeCategory(
   override?: Partial<CategoryProps>,

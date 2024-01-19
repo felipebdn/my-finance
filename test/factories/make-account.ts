@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Account, AccountProps } from '@/domain/financy/interprise/entities/account'
+import {
+  Account,
+  AccountProps,
+} from '@/domain/finance/enterprise/entities/account'
 
 export function makeAccount(
   override?: Partial<AccountProps>,

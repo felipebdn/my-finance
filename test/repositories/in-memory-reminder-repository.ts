@@ -1,6 +1,6 @@
-import { ReminderRepository } from '@/domain/financy/application/repositories/reminder-repository'
-import { Reminder } from '@/domain/financy/interprise/entities/reminder'
-import { typeTransaction } from '@/domain/financy/interprise/entities/transaction'
+import { ReminderRepository } from '@/domain/finance/application/repositories/reminder-repository'
+import { Reminder } from '@/domain/finance/enterprise/entities/reminder'
+import { typeTransaction } from '@/domain/finance/enterprise/entities/transaction'
 
 export class InMemoryReminderRepository implements ReminderRepository {
   public items: Reminder[] = []

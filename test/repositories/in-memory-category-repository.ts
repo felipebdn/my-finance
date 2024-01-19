@@ -1,5 +1,5 @@
-import { CategoryRepository } from '@/domain/financy/application/repositories/category-repository'
-import { Category } from '@/domain/financy/interprise/entities/category'
+import { CategoryRepository } from '@/domain/finance/application/repositories/category-repository'
+import { Category } from '@/domain/finance/enterprise/entities/category'
 
 export class InMemoryCategoryRepository implements CategoryRepository {
   public items: Category[] = []

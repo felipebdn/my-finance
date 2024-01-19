@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Transaction, TransactionProps } from '@/domain/financy/interprise/entities/transaction'
+import {
+  Transaction,
+  TransactionProps,
+} from '@/domain/finance/enterprise/entities/transaction'
 
 export function makeTransaction(
   override?: Partial<TransactionProps>,

@@ -1,11 +1,11 @@
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 
-import { TransactionRepository } from '@/domain/financy/application/repositories/transaction-repository'
+import { TransactionRepository } from '@/domain/finance/application/repositories/transaction-repository'
 import {
   Transaction,
   typeTransaction,
-} from '@/domain/financy/interprise/entities/transaction'
+} from '@/domain/finance/enterprise/entities/transaction'
 
 dayjs.extend(isBetween)
 
