@@ -28,11 +28,12 @@ export class InMemoryTransferRepository implements TransferRepository {
     return transfer
   }
 
-  async findMany(userId: string, params: BetweenDatesParams) {
+  async findMany(userId: string, ids: string[], params: BetweenDatesParams) {
     const transfers = this.items
       .filter(
         (item) =>
           item.userId.toValue() === userId &&
+          ids.includes(item.id.toValue()) &&
           dayjs(item.date).isBetween(params.in, params.until),
       )
       .sort((a, b) => b.date.getTime() - a.date.getTime())

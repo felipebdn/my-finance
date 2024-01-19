@@ -7,6 +7,7 @@ interface ListTransfersUseCaseRequest {
   userId: string
   inDate: Date
   untilDate: Date
+  accounts: string[]
 }
 
 type ListTransfersUseCaseResponse = Either<
@@ -23,8 +24,9 @@ export class ListTransfersUseCase {
     inDate,
     untilDate,
     userId,
+    accounts,
   }: ListTransfersUseCaseRequest): Promise<ListTransfersUseCaseResponse> {
-    const transfers = await this.transferRepository.findMany(userId, {
+    const transfers = await this.transferRepository.findMany(userId, accounts, {
       in: inDate,
       until: untilDate,
     })

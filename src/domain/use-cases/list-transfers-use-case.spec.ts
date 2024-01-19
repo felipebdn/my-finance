@@ -55,6 +55,7 @@ describe('Create Category', () => {
       inDate: new Date('2022-01-06'),
       untilDate: new Date('2022-01-013'),
       userId: 'user-01',
+      accounts: ['transfer-02', 'transfer-03'],
     })
 
     expect(result.isRight()).toBeTruthy()
