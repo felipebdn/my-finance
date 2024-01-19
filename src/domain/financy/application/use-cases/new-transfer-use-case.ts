@@ -2,7 +2,7 @@ import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { Transfer } from '../entities/transfer'
+import { Transfer } from '../../interprise/entities/transfer'
 import { AccountRepository } from '../repositories/account-repository'
 import { TransferRepository } from '../repositories/transfer-repository'
 import { InsufficientBalanceError } from './errors/insufficient-balance-error'

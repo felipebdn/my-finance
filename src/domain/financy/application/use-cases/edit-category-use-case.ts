@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { typeTransaction } from '../entities/transaction'
+import { typeTransaction } from '../../interprise/entities/transaction'
 import { CategoryRepository } from '../repositories/category-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
 import { ResourceAlreadyExistsError } from './errors/resource-already-exists-error'

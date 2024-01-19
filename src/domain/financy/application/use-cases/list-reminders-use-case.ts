@@ -1,7 +1,7 @@
 import { Either, right } from '@/core/either'
 
-import { Reminder } from '../entities/reminder'
-import { typeTransaction } from '../entities/transaction'
+import { Reminder } from '../../interprise/entities/reminder'
+import { typeTransaction } from '../../interprise/entities/transaction'
 import { ReminderRepository } from '../repositories/reminder-repository'
 
 interface ListRemindersUseCaseRequest {

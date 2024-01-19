@@ -1,4 +1,7 @@
-import { Transaction, typeTransaction } from '../entities/transaction'
+import {
+  Transaction,
+  typeTransaction,
+} from '../../interprise/entities/transaction'
 
 export interface TransactionRepository {
   create(transaction: Transaction): Promise<void>

@@ -2,16 +2,15 @@ import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { FrequencyType } from '../entities/reminder'
-import { typeTransaction } from '../entities/transaction'
+import { FrequencyType, Reminder } from '../../interprise/entities/reminder'
+import { typeTransaction } from '../../interprise/entities/transaction'
 import { AccountRepository } from '../repositories/account-repository'
 import { CategoryRepository } from '../repositories/category-repository'
 import { ReminderRepository } from '../repositories/reminder-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
 import { ResourceAlreadyExistsError } from './errors/resource-already-exists-error'
 
-interface EditReminderUseCaseRequest {
-  reminderId: string
+interface NewReminderUseCaseRequest {
   userId: string
   accountId: string
   categoryId: string
@@ -19,17 +18,17 @@ interface EditReminderUseCaseRequest {
   type: string
   frequency: string
   value: number
-  description?: string
+  description: string
   date: Date
   expires: Date
 }
 
-type EditReminderUseCaseResponse = Either<
+type NewReminderUseCaseResponse = Either<
   ResourceAlreadyExistsError | NotAllowedError,
   unknown
 >
 
-export class EditReminderUseCase {
+export class NewReminderUseCase {
   constructor(
     private reminderRepository: ReminderRepository,
     private accountRepository: AccountRepository,
@@ -37,7 +36,6 @@ export class EditReminderUseCase {
   ) {}
 
   async execute({
-    reminderId,
     accountId,
     categoryId,
     date,
@@ -48,12 +46,11 @@ export class EditReminderUseCase {
     userId,
     value,
     description,
-  }: EditReminderUseCaseRequest): Promise<EditReminderUseCaseResponse> {
-    const reminder = await this.reminderRepository.findById(reminderId)
+  }: NewReminderUseCaseRequest): Promise<NewReminderUseCaseResponse> {
     const account = await this.accountRepository.findById(accountId)
     const category = await this.categoryRepository.findById(categoryId)
 
-    if (!reminder || !account || !category) {
+    if (!account || !category) {
       return left(new ResourceNotFoundError())
     }
 
@@ -64,19 +61,20 @@ export class EditReminderUseCase {
       return left(new NotAllowedError())
     }
 
-    reminder.categoryId = new UniqueEntityId(categoryId)
-    reminder.accountId = new UniqueEntityId(accountId)
-    reminder.date = date
-    reminder.expires = expires
-    reminder.frequency = frequency as FrequencyType
-    reminder.name = name
-    reminder.value = value
-    reminder.description = description
-    reminder.type = type as typeTransaction
+    const reminder = Reminder.crete({
+      accountId: new UniqueEntityId(accountId),
+      categoryId: new UniqueEntityId(categoryId),
+      expires,
+      frequency: frequency as FrequencyType,
+      name,
+      type: type as typeTransaction,
+      userId: new UniqueEntityId(userId),
+      value,
+      description,
+      date,
+    })
 
-    reminder.touch()
-
-    await this.reminderRepository.save(reminder)
+    this.reminderRepository.create(reminder)
 
     return right({})
   }

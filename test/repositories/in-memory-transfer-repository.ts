@@ -2,8 +2,8 @@ import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 
 import { BetweenDatesParams } from '@/core/repositories/between-dates-params'
-import { Transfer } from '@/domain/entities/transfer'
-import { TransferRepository } from '@/domain/repositories/transfer-repository'
+import { TransferRepository } from '@/domain/financy/application/repositories/transfer-repository'
+import { Transfer } from '@/domain/financy/interprise/entities/transfer'
 
 dayjs.extend(isBetween)
 

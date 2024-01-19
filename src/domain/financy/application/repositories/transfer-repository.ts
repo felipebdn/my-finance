@@ -1,6 +1,6 @@
 import { BetweenDatesParams } from '@/core/repositories/between-dates-params'
 
-import { Transfer } from '../entities/transfer'
+import { Transfer } from '../../interprise/entities/transfer'
 
 export interface TransferRepository {
   create(transfer: Transfer): Promise<void>

@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Category, CategoryProps } from '@/domain/entities/category'
+import {
+  Category,
+  CategoryProps,
+} from '@/domain/financy/interprise/entities/category'
 
 export function makeCategory(
   override?: Partial<CategoryProps>,

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { User, UserProps } from '@/domain/entities/user'
+import { User, UserProps } from '@/domain/financy/interprise/entities/user'
 
 export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {
   const user = User.crete(

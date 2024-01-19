@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-import { Category } from '../entities/category'
-import { typeTransaction } from '../entities/transaction'
+import { Category } from '../../interprise/entities/category'
+import { typeTransaction } from '../../interprise/entities/transaction'
 import { CategoryRepository } from '../repositories/category-repository'
 import { ResourceAlreadyExistsError } from './errors/resource-already-exists-error'
 

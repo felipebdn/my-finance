@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either'
 
-import { Transaction } from '../entities/transaction'
+import { Transaction } from '../../interprise/entities/transaction'
 import { TransactionRepository } from '../repositories/transaction-repository'
 
 interface ListTransactionWithFilterRequest {

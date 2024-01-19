@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either'
 
-import { User } from '../entities/user'
+import { User } from '../../interprise/entities/user'
 import { UserRepository } from '../repositories/user-repository'
 import { ResourceAlreadyExistsError } from './errors/resource-already-exists-error'
 

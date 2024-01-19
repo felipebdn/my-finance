@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Reminder, ReminderProps } from '@/domain/entities/reminder'
+import {
+  Reminder,
+  ReminderProps,
+} from '@/domain/financy/interprise/entities/reminder'
 
 export function makeReminder(
   override?: Partial<ReminderProps>,

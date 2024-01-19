@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-import { Account } from '../entities/account'
+import { Account } from '../../interprise/entities/account'
 import { AccountRepository } from '../repositories/account-repository'
 import { ResourceAlreadyExistsError } from './errors/resource-already-exists-error'
 

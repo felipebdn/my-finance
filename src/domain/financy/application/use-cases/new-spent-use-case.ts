@@ -2,7 +2,7 @@ import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { Transaction } from '../entities/transaction'
+import { Transaction } from '../../interprise/entities/transaction'
 import { AccountRepository } from '../repositories/account-repository'
 import { CategoryRepository } from '../repositories/category-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'

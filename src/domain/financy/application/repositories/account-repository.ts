@@ -1,4 +1,4 @@
-import { Account } from '../entities/account'
+import { Account } from '../../interprise/entities/account'
 
 export interface AccountRepository {
   create(account: Account): Promise<void>

@@ -1,5 +1,5 @@
-import { Reminder } from '../entities/reminder'
-import { typeTransaction } from '../entities/transaction'
+import { Reminder } from '../../interprise/entities/reminder'
+import { typeTransaction } from '../../interprise/entities/transaction'
 
 export interface ReminderRepository {
   create(reminder: Reminder): Promise<void>

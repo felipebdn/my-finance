@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
-import { Transaction } from '../entities/transaction'
+import { Transaction } from '../../interprise/entities/transaction'
 import { TransactionRepository } from '../repositories/transaction-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
 

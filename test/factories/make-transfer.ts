@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Transfer, TransferProps } from '@/domain/entities/transfer'
+import { Transfer, TransferProps } from '@/domain/financy/interprise/entities/transfer'
 
 export function makeTransfer(
   override?: Partial<TransferProps>,

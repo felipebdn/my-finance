@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either'
 
-import { Transfer } from '../entities/transfer'
+import { Transfer } from '../../interprise/entities/transfer'
 import { TransferRepository } from '../repositories/transfer-repository'
 
 interface ListTransfersUseCaseRequest {
