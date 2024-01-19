@@ -14,6 +14,20 @@ export class InMemoryTransferRepository implements TransferRepository {
     this.items.push(transfer)
   }
 
+  async delete(transfer: Transfer) {
+    const index = this.items.findIndex((item) => item.id === transfer.id)
+
+    this.items.splice(index, 1)
+  }
+
+  async findById(id: string) {
+    const transfer = this.items.find((item) => item.id.toValue() === id)
+    if (!transfer) {
+      return null
+    }
+    return transfer
+  }
+
   async findMany(userId: string, params: BetweenDatesParams) {
     const transfers = this.items
       .filter(
