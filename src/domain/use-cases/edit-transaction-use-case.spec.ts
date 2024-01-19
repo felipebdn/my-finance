@@ -359,6 +359,6 @@ describe('Edit Deposit', () => {
     })
 
     expect(result.isRight()).toBeTruthy()
-    expect(inMemoryAccountRepository.items[0].value).toBe(140)
+    expect(inMemoryAccountRepository.items[0].value).toBe(190)
   })
 })

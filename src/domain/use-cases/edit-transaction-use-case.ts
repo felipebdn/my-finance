@@ -71,32 +71,36 @@ export class EditTransactionUseCase {
       return left(new ResourceNotFoundError('account'))
     }
 
-    if (previousAccount.id.toValue() !== accountId) {
-      if (type === 'deposit') {
-        account.Deposit(value)
-        if (transaction.type === 'spent') {
-          previousAccount.Deposit(transaction.value)
-        } else {
-          previousAccount.Spent(transaction.value)
+    switch (true) {
+      case previousAccount.id.toValue() !== accountId:
+        if (type === 'deposit') {
+          account.Deposit(value)
+          if (transaction.type === 'spent') {
+            previousAccount.Deposit(transaction.value)
+          } else {
+            previousAccount.Spent(transaction.value)
+          }
+        } else if (type === 'spent') {
+          account.Spent(value)
+          if (transaction.type === 'spent') {
+            previousAccount.Deposit(transaction.value)
+          } else {
+            previousAccount.Spent(transaction.value)
+          }
         }
-      } else if (type === 'spent') {
-        account.Spent(value)
-        if (transaction.type === 'spent') {
-          previousAccount.Deposit(transaction.value)
-        } else {
-          previousAccount.Spent(transaction.value)
-        }
-      }
-    } else {
-      if (type === 'deposit') {
+        break
+
+      case type === 'deposit':
         if (transaction.type === 'deposit') {
           account.Spent(transaction.value)
-          account.Spent(value)
-        } else {
+          account.Deposit(value)
+        } else if (transaction.type === 'spent') {
           account.Deposit(transaction.value)
           account.Deposit(value)
         }
-      } else if (type === 'spent') {
+        break
+
+      case type === 'spent':
         if (transaction.type === 'deposit') {
           account.Spent(transaction.value)
           account.Spent(value)
@@ -104,7 +108,10 @@ export class EditTransactionUseCase {
           account.Deposit(transaction.value)
           account.Spent(value)
         }
-      }
+        break
+
+      default:
+        break
     }
 
     transaction.accountId = account.id
