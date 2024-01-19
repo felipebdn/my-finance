@@ -39,4 +39,10 @@ export class InMemoryReminderRepository implements ReminderRepository {
       (item) => item.categoryId.toValue() !== categoryId,
     )
   }
+
+  async deleteById(reminder: Reminder) {
+    const itemIndex = this.items.findIndex((item) => item.id === reminder.id)
+
+    this.items.splice(itemIndex, 1)
+  }
 }
