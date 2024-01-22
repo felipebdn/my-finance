@@ -2,6 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+import { RememberIfEvent } from '../events/remember-if-event'
 import { typeTransaction } from './transaction'
 
 export type FrequencyType =
@@ -128,6 +129,12 @@ export class Reminder extends Entity<ReminderProps> {
       },
       id,
     )
+
+    const isNewReminder = !id
+
+    if (isNewReminder) {
+      reminder.addDomainEvent(new RememberIfEvent(reminder))
+    }
 
     return reminder
   }
