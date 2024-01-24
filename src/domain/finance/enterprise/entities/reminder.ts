@@ -1,4 +1,4 @@
-import { Entity } from '@/core/entities/entity'
+import { AggregateRoot } from '@/core/entities/aggregate-root'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
@@ -29,7 +29,7 @@ export interface ReminderProps {
   updatedAt?: Date
 }
 
-export class Reminder extends Entity<ReminderProps> {
+export class Reminder extends AggregateRoot<ReminderProps> {
   get userId() {
     return this.props.userId
   }

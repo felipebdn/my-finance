@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events'
 import { ReminderRepository } from '@/domain/finance/application/repositories/reminder-repository'
 import { Reminder } from '@/domain/finance/enterprise/entities/reminder'
 import { typeTransaction } from '@/domain/finance/enterprise/entities/transaction'
@@ -7,11 +8,14 @@ export class InMemoryReminderRepository implements ReminderRepository {
 
   async create(reminder: Reminder): Promise<void> {
     this.items.push(reminder)
+
+    DomainEvents.dispatchEventsForAggregate(reminder.id)
   }
 
   async save(reminder: Reminder) {
     const index = this.items.findIndex((item) => item.id === reminder.id)
     this.items[index] = reminder
+    DomainEvents.dispatchEventsForAggregate(reminder.id)
   }
 
   async findById(id: string) {

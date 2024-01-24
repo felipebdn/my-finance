@@ -12,7 +12,7 @@ export class RememberIfEvent implements DomainEvent {
     this.ocurredAt = new Date()
   }
 
-  getAggregateId(): UniqueEntityId {
-    throw new Error('Method not implemented.')
+  public getEntityId(): UniqueEntityId {
+    return this.reminder.id
   }
 }

@@ -4,6 +4,7 @@
   "rules": {
     "simple-import-sort/imports": "error",
     "no-useless-constructor":"off",
-    "@typescript-eslint/adjacent-overload-signatures":"off"
+    "@typescript-eslint/adjacent-overload-signatures":"off",
+    "no-new":"off"
   }
 }
