@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "my-financy",
+  "type": "collection",
+  "presets": {
+    "requestType": "http",
+    "requestUrl": "http://localhost:3333"
+  }
+}
