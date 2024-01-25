@@ -5,7 +5,6 @@ import { Optional } from '@/core/types/optional'
 export interface NotificationProps {
   recipientId: UniqueEntityId
   title: string
-  content: string
   createdAt: Date
   readAt?: Date
 }
@@ -17,10 +16,6 @@ export class Notification extends Entity<NotificationProps> {
 
   get title() {
     return this.props.title
-  }
-
-  get content() {
-    return this.props.content
   }
 
   get createdAt() {

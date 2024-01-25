@@ -2,8 +2,10 @@ import { DomainEvents } from '@/core/events/domain-events'
 import { EventHandler } from '@/core/events/event-handler'
 import { RememberIfEvent } from '@/domain/finance/enterprise/events/remember-if-event'
 
+import { SendNotificationUseCase } from '../use-cases/send-notification-use-case'
+
 export class OnReminderCreated implements EventHandler {
-  constructor() {
+  constructor(private sendNotification: SendNotificationUseCase) {
     this.setupSubscriptions()
   }
 
@@ -14,7 +16,10 @@ export class OnReminderCreated implements EventHandler {
     )
   }
 
-  private async sendRememberIfNotification({ reminder }: RememberIfEvent) {
-    console.log(reminder)
+  private async sendRememberIfNotification(event: RememberIfEvent) {
+    this.sendNotification.execute({
+      recipientId: event.reminder.userId.toValue(),
+      title: `Lembre-se do pagamento '${event.reminder.name}'`,
+    })
   }
 }
