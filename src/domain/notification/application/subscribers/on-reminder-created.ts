@@ -11,7 +11,8 @@ export class OnReminderCreated implements EventHandler {
 
   setupSubscriptions(): void {
     DomainEvents.register(
-      () => this.sendRememberIfNotification.bind(this),
+      (event: unknown) =>
+        this.sendRememberIfNotification(event as RememberIfEvent),
       RememberIfEvent.name,
     )
   }
