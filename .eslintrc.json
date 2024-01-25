@@ -2,9 +2,10 @@
   "extends":["@rocketseat/eslint-config/node"],
   "plugins": ["simple-import-sort"],
   "rules": {
-    "simple-import-sort/imports": "error",
-    "no-useless-constructor":"off",
-    "@typescript-eslint/adjacent-overload-signatures":"off",
-    "no-new":"off"
+      "no-useless-constructor":"off"
   }
+  //   "simple-import-sort/imports": "error",
+  //   "@typescript-eslint/adjacent-overload-signatures":"off",
+  //   "no-new":"off"
+  // }
 }

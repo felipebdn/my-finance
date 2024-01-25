@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  accounts     Account[]
+  transfers    Transfer[]
+  categories   Category[]
+  transactions Transaction[]
+  reminders    Reminder[]
+
+  @@map("users")
+}
+
+model Account {
+  id        String    @id @default(uuid())
+  name      String
+  value     Decimal
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+
+  user                 User          @relation(fields: [userId], references: [id])
+  transferDestinations Transfer[]    @relation("TransferDestiny")
+  transferReferences   Transfer[]    @relation("TransferReferent")
+  transactions         Transaction[]
+  reminders            Reminder[]
+
+  @@map("accounts")
+}
+
+model Transfer {
+  id          String    @id @default(uuid())
+  value       Decimal
+  date        DateTime
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  userId     String @map("user_id")
+  destinyId  String @map("destiny_id")
+  referentId String @map("referent_id")
+
+  user     User    @relation(fields: [userId], references: [id])
+  destiny  Account @relation("TransferDestiny", fields: [destinyId], references: [id])
+  referent Account @relation("TransferReferent", fields: [referentId], references: [id])
+
+  @@map("transfers")
+}
+
+enum Type {
+  deposit
+  spent
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  type      Type
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+  reminders    Reminder[]
+
+  @@map("categories")
+}
+
+model Transaction {
+  id          String    @id @default(uuid())
+  type        Type
+  value       Decimal
+  description String?
+  date        DateTime
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  userId     String @map("user_id")
+  accountId  String @map("account_id")
+  categoryId String @map("category_id")
+
+  user     User     @relation(fields: [userId], references: [id])
+  account  Account  @relation(fields: [accountId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("transactions")
+}
+
+enum Frequency {
+  once
+  daily
+  weekly
+  two_weekly
+  monthly
+  quarterly
+  yearly
+}
+
+model Reminder {
+  id          String    @id @default(uuid())
+  name        String
+  value       Decimal
+  type        Type
+  frequency   Frequency
+  date        DateTime
+  expires     DateTime
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  userId     String @map("user_id")
+  accountId  String @map("account_id")
+  categoryId String @map("category_id")
+
+  user     User     @relation(fields: [userId], references: [id])
+  account  Account  @relation(fields: [accountId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("reminders")
+}
