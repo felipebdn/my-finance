@@ -4,8 +4,6 @@ import { AppService } from './app.service'
 import { PrismaService } from './prisma/prisma.service'
 import { envSchema } from './env'
 import { AuthModule } from './auth/auth.module'
-import { GoogleStrategy } from './auth/google.strategy'
-import { AppController } from './controllers/create-user.controller'
 
 @Module({
   imports: [
@@ -15,7 +13,7 @@ import { AppController } from './controllers/create-user.controller'
     }),
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, PrismaService, GoogleStrategy],
+  controllers: [],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
