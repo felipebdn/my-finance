@@ -1,9 +1,16 @@
-import { Controller, Get, UseGuards } from '@nestjs/common'
-import { GoogleAuthGuard } from './utils/Guards'
+import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { Request } from 'express'
+import { GoogleAuthGuard } from './utils-google/Guards'
+import { AuthService } from './auth.service'
+import { UserDetails } from '@/@types/user'
+import { Public } from './utils-jwt/public'
 
 @Controller('/auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
+
   @Get('/')
+  @Public()
   @UseGuards(GoogleAuthGuard)
   handleLogin() {
     return {
@@ -12,10 +19,10 @@ export class AuthController {
   }
 
   @Get('/google/callback')
+  @Public()
   @UseGuards(GoogleAuthGuard)
-  handleCallback() {
-    return {
-      message: 'ok',
-    }
+  async googleRedirect(@Req() req: Request) {
+    const token = await this.authService.signIn(req.user as UserDetails)
+    return { message: token }
   }
 }

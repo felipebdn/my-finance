@@ -9,8 +9,10 @@ datasource db {
 
 model User {
   id        String    @id @default(uuid())
-  name      String
+  googleId  String    @unique @map("google_id")
   email     String    @unique
+  name      String
+  coverUrl  String    @map("cover_url")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 

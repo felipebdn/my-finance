@@ -6,6 +6,9 @@ export const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   CALLBACK_URL_AUTH: z.string().url(),
+  SESSION_SECRET: z.string(),
+  JWT_PRIVATE_KEY: z.string(),
+  JWT_PUBLIC_KEY: z.string(),
 })
 
 export type Env = z.infer<typeof envSchema>
