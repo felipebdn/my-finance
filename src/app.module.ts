@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { PassportModule } from '@nestjs/passport'
+
 import { AppService } from './app.service'
-import { PrismaService } from './database/prisma/prisma.service'
-import { envSchema } from './env'
 import { AuthModule } from './auth/auth.module'
 import { DatabaseModule } from './database/database.module'
-import { PassportModule } from '@nestjs/passport'
+import { PrismaService } from './database/prisma/prisma.service'
+import { envSchema } from './env'
 
 @Module({
   imports: [
