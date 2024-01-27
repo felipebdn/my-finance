@@ -9,7 +9,7 @@ export type FrequencyType =
   | 'once'
   | 'daily'
   | 'weekly'
-  | 'two-weekly'
+  | 'two_weekly'
   | 'monthly'
   | 'quarterly'
   | 'yearly'
