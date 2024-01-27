@@ -1,10 +1,10 @@
 import { Account } from '../../enterprise/entities/account'
 
-export interface AccountRepository {
-  create(account: Account): Promise<void>
-  save(account: Account): Promise<void>
-  findById(id: string): Promise<Account | null>
-  findByName(name: string): Promise<Account | null>
-  findManyByUserId(userId: string): Promise<Account[]>
-  delete(account: Account): Promise<void>
+export abstract class AccountRepository {
+  abstract create(account: Account): Promise<void>
+  abstract save(account: Account): Promise<void>
+  abstract findById(id: string): Promise<Account | null>
+  abstract findByName(name: string): Promise<Account | null>
+  abstract findManyByUserId(userId: string): Promise<Account[]>
+  abstract delete(account: Account): Promise<void>
 }
