@@ -3,15 +3,14 @@ import { ConfigService } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 
-import { PrismaService } from '@/database/prisma/prisma.service'
-import { Env } from '@/env'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
-import { AuthController } from './auth.controller'
+import { Env } from '../env'
 import { AuthService } from './auth.service'
 import { GoogleStrategy } from './utils-google/GoogleStrategy'
 import { SessionSerializer } from './utils-google/Serializer'
-import { JwtAuthGuard } from './utils-jwt/jwt-auth.guard'
-import { JwtStrategy } from './utils-jwt/jwt-strategy'
+import { JwtAuthGuard } from './utils-google/utils-jwt/jwt-auth.guard'
+import { JwtStrategy } from './utils-google/utils-jwt/jwt-strategy'
 
 @Module({
   imports: [
@@ -36,12 +35,10 @@ import { JwtStrategy } from './utils-jwt/jwt-strategy'
     SessionSerializer,
     GoogleStrategy,
     PrismaService,
-    AuthService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
   ],
-  controllers: [AuthController],
 })
 export class AuthModule {}

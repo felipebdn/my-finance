@@ -14,7 +14,6 @@ describe('Create Category', () => {
 
   it('should be able to create a new category', async () => {
     const result = await sut.execute({
-      content: 'notification content',
       recipientId: 'recipient-01',
       title: 'notification',
     })

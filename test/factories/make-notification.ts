@@ -12,7 +12,6 @@ export function makeNotification(
 ) {
   const notification = Notification.create(
     {
-      content: faker.lorem.sentence(5),
       recipientId: new UniqueEntityId(),
       title: faker.lorem.sentence(3),
       ...override,

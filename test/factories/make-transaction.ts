@@ -16,7 +16,7 @@ export function makeTransaction(
       categoryId: new UniqueEntityId(),
       userId: new UniqueEntityId(),
       type: faker.datatype.boolean({ probability: 0.5 }) ? 'deposit' : 'spent',
-      value: faker.number.float({ precision: 0.01 }),
+      value: faker.number.float({ multipleOf: 0.01 }),
       ...override,
     },
     id,

@@ -1,12 +1,16 @@
 {
-  "extends":["@rocketseat/eslint-config/node"],
-  "plugins": ["simple-import-sort"],
+  "extends": [
+    "@rocketseat/eslint-config/node"
+  ],
+  "plugins": [
+    "simple-import-sort"
+  ],
   "rules": {
-      "no-useless-constructor":"off",
-      "simple-import-sort/imports": "error"
+    "no-useless-constructor": "off",
+    "simple-import-sort/imports": "error",
+    "@typescript-eslint/adjacent-overload-signatures": "off",
+    "no-new": "off"
   }
   //   "simple-import-sort/imports": "error",
-  //   "@typescript-eslint/adjacent-overload-signatures":"off",
-  //   "no-new":"off"
   // }
 }

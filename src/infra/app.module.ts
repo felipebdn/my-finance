@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
 
-import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
 import { DatabaseModule } from './database/database.module'
 import { PrismaService } from './database/prisma/prisma.service'
 import { envSchema } from './env'
+import { HttpModule } from './http/http.module'
 
 @Module({
   imports: [
@@ -15,10 +15,10 @@ import { envSchema } from './env'
       isGlobal: true,
     }),
     AuthModule,
+    HttpModule,
     DatabaseModule,
     PassportModule.register({ session: true }),
   ],
-  controllers: [],
-  providers: [AppService, PrismaService],
+  providers: [PrismaService],
 })
 export class AppModule {}

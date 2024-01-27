@@ -20,7 +20,7 @@ export function makeReminder(
       name: faker.lorem.words(2),
       type: 'deposit',
       userId: new UniqueEntityId(),
-      value: faker.number.float({ precision: 0.01 }),
+      value: faker.number.float({ multipleOf: 0.01 }),
       ...override,
     },
     id,

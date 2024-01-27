@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 
-import { UserPayload } from './utils-jwt/jwt-strategy'
+import { UserPayload } from './utils-google/utils-jwt/jwt-strategy'
 
 export const CurrentUser = createParamDecorator(
   (_: unknown, context: ExecutionContext) => {
