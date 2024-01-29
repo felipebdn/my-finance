@@ -8,8 +8,8 @@ import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { Env } from '../env'
 import { GoogleStrategy } from './utils-google/GoogleStrategy'
 import { SessionSerializer } from './utils-google/Serializer'
-import { JwtAuthGuard } from './utils-google/utils-jwt/jwt-auth.guard'
-import { JwtStrategy } from './utils-google/utils-jwt/jwt-strategy'
+import { JwtAuthGuard } from './utils-jwt/jwt-auth.guard'
+import { JwtStrategy } from './utils-jwt/jwt-strategy'
 
 @Module({
   imports: [

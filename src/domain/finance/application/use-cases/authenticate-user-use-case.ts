@@ -14,7 +14,7 @@ interface AuthenticateUserUseCaseRequest {
 }
 
 type AuthenticateUserUseCaseResponse = Either<
-  unknown,
+  any,
   {
     accessToken: string
   }

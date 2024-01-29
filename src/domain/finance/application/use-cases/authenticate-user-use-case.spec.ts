@@ -1,4 +1,4 @@
-import { FakeEncrypter } from 'test/cryptography/encrypter'
+import { FakeEncrypter } from 'test/cryptography/fake-encrypter'
 import { makeUser } from 'test/factories/make-user'
 import { InMemoryUserRepository } from 'test/repositories/in-memory-user-repository'
 import { expect } from 'vitest'
