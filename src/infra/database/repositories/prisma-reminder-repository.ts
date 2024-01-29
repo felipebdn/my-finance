@@ -41,10 +41,14 @@ export class PrismaReminderRepository implements ReminderRepository {
   ): Promise<Reminder[]> {
     const reminders = await this.prisma.reminder.findMany({
       where: {
-        userId,
-        type: {
-          equals: type,
-        },
+        AND: [
+          { userId },
+          {
+            type: {
+              equals: type,
+            },
+          },
+        ],
       },
     })
     return reminders.map((reminder) => PrismaReminderMapper.toDomain(reminder))

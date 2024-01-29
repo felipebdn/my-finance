@@ -12,7 +12,7 @@ model User {
   googleId  String    @unique @map("google_id")
   email     String    @unique
   name      String
-  coverUrl  String    @map("cover_url")
+  avatarUrl String    @map("avatar_url")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 

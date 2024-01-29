@@ -80,12 +80,16 @@ export class PrismaTransactionRepository implements TransactionRepository {
   ): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        categoryId,
-        accountId: {
-          in: accountIds,
-        },
-        type,
-        userId,
+        AND: [
+          { categoryId },
+          {
+            accountId: {
+              in: accountIds,
+            },
+          },
+          { type },
+          { userId },
+        ],
       },
     })
     return transactions.map((transaction) =>
@@ -102,13 +106,17 @@ export class PrismaTransactionRepository implements TransactionRepository {
   ): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        type,
-        userId,
-        accountId,
-        date: {
-          gte: inDate,
-          lte: outDate,
-        },
+        AND: [
+          { type },
+          { userId },
+          { accountId },
+          {
+            date: {
+              gte: inDate,
+              lte: outDate,
+            },
+          },
+        ],
       },
     })
     return transactions.map((transaction) =>
@@ -124,12 +132,16 @@ export class PrismaTransactionRepository implements TransactionRepository {
   ): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        type,
-        userId,
-        date: {
-          gte: inDate,
-          lte: outDate,
-        },
+        AND: [
+          { type },
+          { userId },
+          {
+            date: {
+              gte: inDate,
+              lte: outDate,
+            },
+          },
+        ],
       },
     })
     return transactions.map((transaction) =>

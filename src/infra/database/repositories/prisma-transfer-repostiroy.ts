@@ -66,6 +66,10 @@ export class PrismaTransferRepository implements TransferRepository {
   }
 
   async deleteManyByAccountId(AccountId: string) {
-    throw new Error('Method not implemented.')
+    await this.prisma.transfer.deleteMany({
+      where: {
+        OR: [{ destinyId: AccountId }, { referentId: AccountId }],
+      },
+    })
   }
 }

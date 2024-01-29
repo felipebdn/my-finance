@@ -3,8 +3,10 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
 export interface UserProps {
+  googleId: string
   name: string
   email: string
+  avatarUrl: string
   createdAt: Date
   updatedAt?: Date
 }
@@ -16,6 +18,14 @@ export class User extends Entity<UserProps> {
 
   get email() {
     return this.props.email
+  }
+
+  get avatarUrl() {
+    return this.props.avatarUrl
+  }
+
+  get googleId() {
+    return this.props.googleId
   }
 
   get createdAt() {
