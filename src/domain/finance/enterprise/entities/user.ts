@@ -16,6 +16,10 @@ export class User extends Entity<UserProps> {
     return this.props.name
   }
 
+  set name(name: string) {
+    this.props.name = name
+  }
+
   get email() {
     return this.props.email
   }
@@ -24,8 +28,16 @@ export class User extends Entity<UserProps> {
     return this.props.avatarUrl
   }
 
+  set avatarUrl(avatarUrl: string) {
+    this.props.avatarUrl = avatarUrl
+  }
+
   get googleId() {
     return this.props.googleId
+  }
+
+  set googleId(googleId: string) {
+    this.props.googleId = googleId
   }
 
   get createdAt() {

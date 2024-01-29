@@ -7,6 +7,8 @@ export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {
   const user = User.crete(
     {
       email: faker.internet.email(),
+      avatarUrl: faker.internet.url(),
+      googleId: new UniqueEntityId().toString(),
       name: faker.person.fullName(),
       ...override,
     },
