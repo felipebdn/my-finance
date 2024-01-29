@@ -55,7 +55,7 @@ export class PrismaAccountRepository implements AccountRepository {
         userId,
       },
     })
-    return accounts.map((account) => PrismaAccountMapper.toDomain(account))
+    return accounts.map(PrismaAccountMapper.toDomain)
   }
 
   async delete(account: Account) {

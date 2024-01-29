@@ -51,7 +51,7 @@ export class PrismaReminderRepository implements ReminderRepository {
         ],
       },
     })
-    return reminders.map((reminder) => PrismaReminderMapper.toDomain(reminder))
+    return reminders.map(PrismaReminderMapper.toDomain)
   }
 
   async deleteManyByCategoryId(categoryId: string): Promise<void> {

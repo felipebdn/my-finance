@@ -53,7 +53,7 @@ export class PrismaTransferRepository implements TransferRepository {
         ],
       },
     })
-    return transfers.map((transfer) => PrismaTransferMapper.toDomain(transfer))
+    return transfers.map(PrismaTransferMapper.toDomain)
   }
 
   async findManyByAccountId(accountId: string) {
@@ -62,7 +62,7 @@ export class PrismaTransferRepository implements TransferRepository {
         OR: [{ referentId: accountId }, { destinyId: accountId }],
       },
     })
-    return transfers.map((transfer) => PrismaTransferMapper.toDomain(transfer))
+    return transfers.map(PrismaTransferMapper.toDomain)
   }
 
   async deleteManyByAccountId(AccountId: string) {

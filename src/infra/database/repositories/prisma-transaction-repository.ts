@@ -67,9 +67,7 @@ export class PrismaTransactionRepository implements TransactionRepository {
         accountId,
       },
     })
-    return transactions.map((transaction) =>
-      PrismaTransactionMapper.toDomain(transaction),
-    )
+    return transactions.map(PrismaTransactionMapper.toDomain)
   }
 
   async findManyByCategory(
@@ -92,9 +90,7 @@ export class PrismaTransactionRepository implements TransactionRepository {
         ],
       },
     })
-    return transactions.map((transaction) =>
-      PrismaTransactionMapper.toDomain(transaction),
-    )
+    return transactions.map(PrismaTransactionMapper.toDomain)
   }
 
   async findManyByFilter(
@@ -119,9 +115,7 @@ export class PrismaTransactionRepository implements TransactionRepository {
         ],
       },
     })
-    return transactions.map((transaction) =>
-      PrismaTransactionMapper.toDomain(transaction),
-    )
+    return transactions.map(PrismaTransactionMapper.toDomain)
   }
 
   async findManyByUserId(
@@ -144,8 +138,6 @@ export class PrismaTransactionRepository implements TransactionRepository {
         ],
       },
     })
-    return transactions.map((transaction) =>
-      PrismaTransactionMapper.toDomain(transaction),
-    )
+    return transactions.map(PrismaTransactionMapper.toDomain)
   }
 }
