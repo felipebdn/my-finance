@@ -14,7 +14,7 @@ interface AuthenticateUserUseCaseRequest {
 }
 
 type AuthenticateUserUseCaseResponse = Either<
-  any,
+  unknown,
   {
     accessToken: string
   }
@@ -42,7 +42,11 @@ export class AuthenticateUserUseCase {
 
       await this.userRepository.save(user)
 
-      return right({ accessToken: await this.Encrypter(user.id.toValue()) })
+      return right({
+        accessToken: await this.encrypter.encrypt({
+          sub: user.id.toValue(),
+        }),
+      })
     } else {
       const newUser = User.crete({
         googleId,
@@ -53,13 +57,11 @@ export class AuthenticateUserUseCase {
 
       await this.userRepository.create(newUser)
 
-      return right({ accessToken: await this.Encrypter(newUser.id.toValue()) })
+      return right({
+        accessToken: await this.encrypter.encrypt({
+          sub: newUser.id.toValue(),
+        }),
+      })
     }
-  }
-
-  private async Encrypter(id: string): Promise<string> {
-    return await this.encrypter.encrypt({
-      sub: id,
-    })
   }
 }

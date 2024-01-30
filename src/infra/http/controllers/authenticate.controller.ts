@@ -13,7 +13,7 @@ import { GoogleAuthGuard } from '@/infra/auth/utils-google/Guards'
 import { Public } from '@/infra/auth/utils-jwt/public'
 
 @Controller('/auth')
-export class AuthController {
+export class AuthenticateController {
   constructor(private authenticateUser: AuthenticateUserUseCase) {}
 
   @Get('/')
@@ -30,14 +30,19 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async googleRedirect(@Req() req: Request) {
     const user = req.user as UserDetails
-    const tste = await this.authenticateUser.execute({
+    const result = await this.authenticateUser.execute({
       avatarUrl: user.coverUrl,
       email: user.email,
       googleId: user.providerId,
       name: user.name,
     })
-    if (tste.isLeft()) {
-      throw new BadRequestException('Error on authenticate')
+
+    if (!result.isRight()) {
+      throw new BadRequestException()
+    }
+
+    return {
+      accessToken: result.value.accessToken,
     }
   }
 }
