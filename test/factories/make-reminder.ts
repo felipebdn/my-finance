@@ -5,7 +5,7 @@ import {
   Reminder,
   ReminderProps,
 } from '@/domain/finance/enterprise/entities/reminder'
-import { PrismaReminderMapper } from '@/infra/database/mappers/prisma-reminder-mapper'
+import { PrismaReminderMapper } from '@/infra/database/prisma/mappers/prisma-reminder-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeReminder(

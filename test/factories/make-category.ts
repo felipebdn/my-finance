@@ -5,7 +5,7 @@ import {
   Category,
   CategoryProps,
 } from '@/domain/finance/enterprise/entities/category'
-import { PrismaCategoryMapper } from '@/infra/database/mappers/prisma-category-mapper'
+import { PrismaCategoryMapper } from '@/infra/database/prisma/mappers/prisma-category-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeCategory(

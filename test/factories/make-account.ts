@@ -5,7 +5,7 @@ import {
   Account,
   AccountProps,
 } from '@/domain/finance/enterprise/entities/account'
-import { PrismaAccountMapper } from '@/infra/database/mappers/prisma-account-mapper'
+import { PrismaAccountMapper } from '@/infra/database/prisma/mappers/prisma-account-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeAccount(

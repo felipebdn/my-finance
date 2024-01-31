@@ -5,19 +5,28 @@ import {
 } from '@/domain/finance/enterprise/entities/transaction'
 
 import { PrismaTransactionMapper } from '../mappers/prisma-transaction-mapper'
-import { PrismaService } from '../prisma/prisma.service'
+import { PrismaClientManager, PrismaService } from '../prisma.service'
 
 export class PrismaTransactionRepository implements TransactionRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private clientManager: PrismaClientManager,
+  ) {}
 
-  async create(transaction: Transaction): Promise<void> {
-    await this.prisma.transaction.create({
+  private getPrisma(tKey?: string) {
+    return tKey ? this.clientManager.getClient(tKey) : this.prisma
+  }
+
+  async create(transaction: Transaction, t?: string): Promise<void> {
+    const prisma = this.getPrisma(t)
+    await prisma.transaction.create({
       data: PrismaTransactionMapper.toPrisma(transaction),
     })
   }
 
-  async save(transaction: Transaction): Promise<void> {
-    await this.prisma.transaction.update({
+  async save(transaction: Transaction, t?: string): Promise<void> {
+    const prisma = this.getPrisma(t)
+    await prisma.transaction.update({
       data: PrismaTransactionMapper.toPrisma(transaction),
       where: {
         id: transaction.id.toValue(),
@@ -25,32 +34,36 @@ export class PrismaTransactionRepository implements TransactionRepository {
     })
   }
 
-  async delete(transaction: Transaction): Promise<void> {
-    await this.prisma.transaction.delete({
+  async delete(transaction: Transaction, t?: string): Promise<void> {
+    const prisma = this.getPrisma(t)
+    await prisma.transaction.delete({
       where: {
         id: transaction.id.toValue(),
       },
     })
   }
 
-  async deleteManyByCategoryId(categoryId: string): Promise<void> {
-    await this.prisma.transaction.deleteMany({
+  async deleteManyByCategoryId(categoryId: string, t?: string): Promise<void> {
+    const prisma = this.getPrisma(t)
+    await prisma.transaction.deleteMany({
       where: {
         categoryId,
       },
     })
   }
 
-  async deleteManyByAccountId(accountId: string): Promise<void> {
-    await this.prisma.transaction.deleteMany({
+  async deleteManyByAccountId(accountId: string, t?: string): Promise<void> {
+    const prisma = this.getPrisma(t)
+    await prisma.transaction.deleteMany({
       where: {
         accountId,
       },
     })
   }
 
-  async findById(id: string): Promise<Transaction> {
-    const transaction = await this.prisma.transaction.findUnique({
+  async findById(id: string, t?: string): Promise<Transaction> {
+    const prisma = this.getPrisma(t)
+    const transaction = await prisma.transaction.findUnique({
       where: {
         id,
       },
@@ -61,8 +74,12 @@ export class PrismaTransactionRepository implements TransactionRepository {
     return PrismaTransactionMapper.toDomain(transaction)
   }
 
-  async findManyByAccountId(accountId: string): Promise<Transaction[]> {
-    const transactions = await this.prisma.transaction.findMany({
+  async findManyByAccountId(
+    accountId: string,
+    t?: string,
+  ): Promise<Transaction[]> {
+    const prisma = this.getPrisma(t)
+    const transactions = await prisma.transaction.findMany({
       where: {
         accountId,
       },
@@ -75,8 +92,10 @@ export class PrismaTransactionRepository implements TransactionRepository {
     accountIds: string[],
     type: typeTransaction,
     userId: string,
+    t?: string,
   ): Promise<Transaction[]> {
-    const transactions = await this.prisma.transaction.findMany({
+    const prisma = this.getPrisma(t)
+    const transactions = await prisma.transaction.findMany({
       where: {
         AND: [
           { categoryId },
@@ -99,8 +118,10 @@ export class PrismaTransactionRepository implements TransactionRepository {
     accountId: string,
     inDate: Date,
     outDate: Date,
+    t?: string,
   ): Promise<Transaction[]> {
-    const transactions = await this.prisma.transaction.findMany({
+    const prisma = this.getPrisma(t)
+    const transactions = await prisma.transaction.findMany({
       where: {
         AND: [
           { type },
@@ -123,8 +144,10 @@ export class PrismaTransactionRepository implements TransactionRepository {
     userId: string,
     inDate: Date,
     outDate: Date,
+    t?: string,
   ): Promise<Transaction[]> {
-    const transactions = await this.prisma.transaction.findMany({
+    const prisma = this.getPrisma(t)
+    const transactions = await prisma.transaction.findMany({
       where: {
         AND: [
           { type },

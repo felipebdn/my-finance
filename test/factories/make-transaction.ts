@@ -5,7 +5,7 @@ import {
   Transaction,
   TransactionProps,
 } from '@/domain/finance/enterprise/entities/transaction'
-import { PrismaTransactionMapper } from '@/infra/database/mappers/prisma-transaction-mapper'
+import { PrismaTransactionMapper } from '@/infra/database/prisma/mappers/prisma-transaction-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeTransaction(

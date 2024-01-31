@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { User, UserProps } from '@/domain/finance/enterprise/entities/user'
-import { PrismaUserMapper } from '@/infra/database/mappers/prisma-user-mapper'
+import { PrismaUserMapper } from '@/infra/database/prisma/mappers/prisma-user-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {

@@ -3,27 +3,37 @@ import { TransferRepository } from '@/domain/finance/application/repositories/tr
 import { Transfer } from '@/domain/finance/enterprise/entities/transfer'
 
 import { PrismaTransferMapper } from '../mappers/prisma-transfer-mapper'
-import { PrismaService } from '../prisma/prisma.service'
+import { PrismaClientManager, PrismaService } from '../prisma.service'
 
 export class PrismaTransferRepository implements TransferRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private clientManager: PrismaClientManager,
+  ) {}
 
-  async create(transfer: Transfer) {
-    await this.prisma.transfer.create({
+  private getPrisma(tKey?: string) {
+    return tKey ? this.clientManager.getClient(tKey) : this.prisma
+  }
+
+  async create(transfer: Transfer, t?: string) {
+    const prisma = this.getPrisma(t)
+    await prisma.transfer.create({
       data: PrismaTransferMapper.toPrisma(transfer),
     })
   }
 
-  async delete(transfer: Transfer) {
-    await this.prisma.transfer.delete({
+  async delete(transfer: Transfer, t?: string) {
+    const prisma = this.getPrisma(t)
+    await prisma.transfer.delete({
       where: {
         id: transfer.id.toValue(),
       },
     })
   }
 
-  async findById(id: string) {
-    const transfer = await this.prisma.transfer.findUnique({
+  async findById(id: string, t?: string) {
+    const prisma = this.getPrisma(t)
+    const transfer = await prisma.transfer.findUnique({
       where: {
         id,
       },
@@ -34,8 +44,14 @@ export class PrismaTransferRepository implements TransferRepository {
     return PrismaTransferMapper.toDomain(transfer)
   }
 
-  async findMany(userId: string, ids: string[], params: BetweenDatesParams) {
-    const transfers = await this.prisma.transfer.findMany({
+  async findMany(
+    userId: string,
+    ids: string[],
+    params: BetweenDatesParams,
+    t?: string,
+  ) {
+    const prisma = this.getPrisma(t)
+    const transfers = await prisma.transfer.findMany({
       where: {
         AND: [
           { userId },
@@ -56,8 +72,9 @@ export class PrismaTransferRepository implements TransferRepository {
     return transfers.map(PrismaTransferMapper.toDomain)
   }
 
-  async findManyByAccountId(accountId: string) {
-    const transfers = await this.prisma.transfer.findMany({
+  async findManyByAccountId(accountId: string, t?: string) {
+    const prisma = this.getPrisma(t)
+    const transfers = await prisma.transfer.findMany({
       where: {
         OR: [{ referentId: accountId }, { destinyId: accountId }],
       },
@@ -65,8 +82,9 @@ export class PrismaTransferRepository implements TransferRepository {
     return transfers.map(PrismaTransferMapper.toDomain)
   }
 
-  async deleteManyByAccountId(AccountId: string) {
-    await this.prisma.transfer.deleteMany({
+  async deleteManyByAccountId(AccountId: string, t?: string) {
+    const prisma = this.getPrisma(t)
+    await prisma.transfer.deleteMany({
       where: {
         OR: [{ destinyId: AccountId }, { referentId: AccountId }],
       },

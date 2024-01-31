@@ -5,7 +5,7 @@ import {
   Transfer,
   TransferProps,
 } from '@/domain/finance/enterprise/entities/transfer'
-import { PrismaTransferMapper } from '@/infra/database/mappers/prisma-transfer-mapper'
+import { PrismaTransferMapper } from '@/infra/database/prisma/mappers/prisma-transfer-mapper'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeTransfer(
