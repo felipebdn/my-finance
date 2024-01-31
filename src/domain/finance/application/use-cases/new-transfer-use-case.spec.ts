@@ -1,6 +1,7 @@
 import { makeAccount } from 'test/factories/make-account'
 import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-repository'
 import { InMemoryTransferRepository } from 'test/repositories/in-memory-transfer-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
@@ -8,15 +9,18 @@ import { NewTransferUseCase } from './new-transfer-use-case'
 
 let inMemoryAccountRepository: InMemoryAccountRepository
 let inMemoryTransferRepository: InMemoryTransferRepository
+let scope: InMemoryTransactionScope
 let sut: NewTransferUseCase
 
 describe('New Transfer', () => {
   beforeEach(() => {
     inMemoryAccountRepository = new InMemoryAccountRepository()
     inMemoryTransferRepository = new InMemoryTransferRepository()
+    scope = new InMemoryTransactionScope()
     sut = new NewTransferUseCase(
       inMemoryAccountRepository,
       inMemoryTransferRepository,
+      scope,
     )
   })
 

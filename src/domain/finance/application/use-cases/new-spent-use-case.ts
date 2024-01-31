@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
@@ -7,6 +9,7 @@ import { Transaction } from '../../enterprise/entities/transaction'
 import { AccountRepository } from '../repositories/account-repository'
 import { CategoryRepository } from '../repositories/category-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 import { InsufficientBalanceError } from './errors/insufficient-balance-error'
 
 interface NewSpentUseCaseRequest {
@@ -29,6 +32,7 @@ export class NewSpentUseCase {
     private transactionRepository: TransactionRepository,
     private accountRepository: AccountRepository,
     private categoryRepository: CategoryRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -71,8 +75,12 @@ export class NewSpentUseCase {
 
     account.Spent(value)
 
-    await this.accountRepository.save(account)
-    await this.transactionRepository.create(transaction)
+    const transactionKey = randomUUID()
+
+    await this.t.run(async () => {
+      await this.accountRepository.save(account)
+      await this.transactionRepository.create(transaction)
+    }, transactionKey)
 
     return right({ transaction })
   }

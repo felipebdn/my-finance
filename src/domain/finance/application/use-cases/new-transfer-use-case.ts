@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
@@ -6,6 +8,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { Transfer } from '../../enterprise/entities/transfer'
 import { AccountRepository } from '../repositories/account-repository'
 import { TransferRepository } from '../repositories/transfer-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 import { InsufficientBalanceError } from './errors/insufficient-balance-error'
 
 interface NewTransferUseCaseRequest {
@@ -25,6 +28,7 @@ export class NewTransferUseCase {
   constructor(
     private accountRepository: AccountRepository,
     private transferRepository: TransferRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -63,11 +67,13 @@ export class NewTransferUseCase {
     accountReferent.Spent(value)
     accountDestiny.Deposit(value)
 
-    await Promise.all([
-      await this.transferRepository.create(transfer),
-      await this.accountRepository.save(accountReferent),
-      await this.accountRepository.save(accountDestiny),
-    ])
+    const transactionKey = randomUUID()
+
+    await this.t.run(async () => {
+      await this.transferRepository.create(transfer)
+      await this.accountRepository.save(accountReferent)
+      await this.accountRepository.save(accountDestiny)
+    }, transactionKey)
 
     return right({})
   }

@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
@@ -6,6 +8,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { Transaction } from '../../enterprise/entities/transaction'
 import { AccountRepository } from '../repositories/account-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 
 interface NewDepositUseCaseRequest {
   accountId: string
@@ -24,6 +27,7 @@ export class NewDepositUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
     private accountRepository: AccountRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -54,7 +58,14 @@ export class NewDepositUseCase {
       categoryId: new UniqueEntityId(categoryId),
     })
 
-    await this.transactionRepository.create(transaction)
+    account.Deposit(value)
+
+    const transactionKey = randomUUID()
+
+    await this.t.run(async () => {
+      await this.accountRepository.save(account)
+      await this.transactionRepository.create(transaction)
+    }, transactionKey)
 
     return right({})
   }

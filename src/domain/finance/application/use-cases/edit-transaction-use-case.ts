@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
@@ -9,6 +11,7 @@ import {
 import { AccountRepository } from '../repositories/account-repository'
 import { CategoryRepository } from '../repositories/category-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 import { InsufficientBalanceError } from './errors/insufficient-balance-error'
 
 interface EditTransactionUseCaseRequest {
@@ -33,6 +36,7 @@ export class EditTransactionUseCase {
     private transactionRepository: TransactionRepository,
     private accountRepository: AccountRepository,
     private categoryRepository: CategoryRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -126,9 +130,13 @@ export class EditTransactionUseCase {
 
     transaction.touch()
 
-    await this.accountRepository.save(previousAccount)
-    await this.accountRepository.save(account)
-    await this.transactionRepository.save(transaction)
+    const transactionKey = randomUUID()
+
+    await this.t.run(async () => {
+      await this.accountRepository.save(previousAccount)
+      await this.accountRepository.save(account)
+      await this.transactionRepository.save(transaction)
+    }, transactionKey)
 
     return right({ transaction })
   }

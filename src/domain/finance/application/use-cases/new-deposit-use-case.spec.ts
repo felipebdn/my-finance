@@ -1,6 +1,7 @@
 import { makeAccount } from 'test/factories/make-account'
 import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-repository'
 import { InMemoryTransactionRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
@@ -10,15 +11,18 @@ import { NewDepositUseCase } from './new-deposit-use-case'
 
 let inMemoryTransactionRepository: InMemoryTransactionRepository
 let inMemoryAccountRepository: InMemoryAccountRepository
+let scope: InMemoryTransactionScope
 let sut: NewDepositUseCase
 
 describe('New Deposit', () => {
   beforeEach(() => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
     inMemoryAccountRepository = new InMemoryAccountRepository()
+    scope = new InMemoryTransactionScope()
     sut = new NewDepositUseCase(
       inMemoryTransactionRepository,
       inMemoryAccountRepository,
+      scope,
     )
   })
 

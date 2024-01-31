@@ -4,6 +4,7 @@ import { makeTransaction } from 'test/factories/make-transaction'
 import { InMemoryCategoryRepository } from 'test/repositories/in-memory-category-repository'
 import { InMemoryReminderRepository } from 'test/repositories/in-memory-reminder-repository'
 import { InMemoryTransactionRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 import { expect } from 'vitest'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
@@ -13,6 +14,7 @@ import { DeleteCategoryUseCase } from './delete-category-use-case'
 let inMemoryCategoryRepository: InMemoryCategoryRepository
 let inMemoryReminderRepository: InMemoryReminderRepository
 let inMemoryTransactionRepository: InMemoryTransactionRepository
+let scope: InMemoryTransactionScope
 let sut: DeleteCategoryUseCase
 
 describe('Delete Category', () => {
@@ -20,10 +22,12 @@ describe('Delete Category', () => {
     inMemoryCategoryRepository = new InMemoryCategoryRepository()
     inMemoryReminderRepository = new InMemoryReminderRepository()
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
+    scope = new InMemoryTransactionScope()
     sut = new DeleteCategoryUseCase(
       inMemoryCategoryRepository,
       inMemoryReminderRepository,
       inMemoryTransactionRepository,
+      scope,
     )
   })
 

@@ -30,14 +30,15 @@ export class GetResumeUseCase {
       }
 
       return right({ value: accounts.value })
+    } else {
+      const accounts = await this.accountRepository.findManyByUserId(userId)
+
+      const value: number = accounts.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.value,
+        0,
+      )
+
+      return right({ value })
     }
-    const accounts = await this.accountRepository.findManyByUserId(userId)
-
-    const value: number = accounts.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.value,
-      0,
-    )
-
-    return right({ value })
   }
 }

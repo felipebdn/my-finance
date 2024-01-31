@@ -20,3 +20,14 @@ export function makeNotification(
   )
   return notification
 }
+
+// export class NotificationFactory {
+//   constructor(private prisma: PrismaService) {}
+//   async makePrismaNotification(data: Partial<NotificationProps>) {
+//     const notification = makeNotification(data)
+//     await this.prisma.notification.create({
+//       data: PrismaNotificationMapper.toPrisma(notification),
+//     })
+//     return notification
+//   }
+// }

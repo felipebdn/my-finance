@@ -38,14 +38,15 @@ export class ListTransactionWithFilter {
       )
 
       return right({ transactions })
-    }
-    const transactions = await this.transactionRepository.findManyByUserId(
-      type as 'deposit' | 'spent',
-      userId,
-      inDate,
-      outDate,
-    )
+    } else {
+      const transactions = await this.transactionRepository.findManyByUserId(
+        type as 'deposit' | 'spent',
+        userId,
+        inDate,
+        outDate,
+      )
 
-    return right({ transactions })
+      return right({ transactions })
+    }
   }
 }

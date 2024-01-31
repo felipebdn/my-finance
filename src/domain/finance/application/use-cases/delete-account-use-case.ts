@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
@@ -6,6 +8,7 @@ import { AccountRepository } from '../repositories/account-repository'
 import { ReminderRepository } from '../repositories/reminder-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
 import { TransferRepository } from '../repositories/transfer-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 
 interface DeleteAccountUseCaseRequest {
   accountId: string
@@ -25,6 +28,7 @@ export class DeleteAccountUseCase {
     private transactionRepository: TransactionRepository,
     private reminderRepository: ReminderRepository,
     private transferRepository: TransferRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -44,20 +48,26 @@ export class DeleteAccountUseCase {
       return left(new NotAllowedError())
     }
 
-    deleteReminder &&
-      (await this.reminderRepository.deleteManyByAccountId(
-        account.id.toValue(),
-      ))
+    const transactionKey = randomUUID()
 
-    deleteTransaction &&
-      (await this.transactionRepository.deleteManyByAccountId(
-        account.id.toValue(),
-      ))
+    await this.t.run(async () => {
+      deleteReminder &&
+        (await this.reminderRepository.deleteManyByAccountId(
+          account.id.toValue(),
+        ))
 
-    deleteTransfer &&
-      this.transferRepository.deleteManyByAccountId(account.id.toValue())
+      deleteTransaction &&
+        (await this.transactionRepository.deleteManyByAccountId(
+          account.id.toValue(),
+        ))
 
-    await this.accountRepository.delete(account)
+      deleteTransfer &&
+        (await this.transferRepository.deleteManyByAccountId(
+          account.id.toValue(),
+        ))
+
+      await this.accountRepository.delete(account)
+    }, transactionKey)
 
     return right({})
   }

@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
@@ -6,6 +8,7 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 import { CategoryRepository } from '../repositories/category-repository'
 import { ReminderRepository } from '../repositories/reminder-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
+import { TransactionScope } from '../transaction/transaction-scope'
 
 interface DeleteCategoryUseCaseRequest {
   userId: string
@@ -21,6 +24,7 @@ export class DeleteCategoryUseCase {
     private categoryRepository: CategoryRepository,
     private reminderRepository: ReminderRepository,
     private transactionRepository: TransactionRepository,
+    private t: TransactionScope,
   ) {}
 
   async execute({
@@ -37,14 +41,17 @@ export class DeleteCategoryUseCase {
       return left(new NotAllowedError())
     }
 
-    if (deleteReminders) {
-      await this.reminderRepository.deleteManyByCategoryId(categoryId)
-    }
-    if (deleteTransactions) {
-      await this.transactionRepository.deleteManyByCategoryId(categoryId)
-    }
+    const transactionKey = randomUUID()
 
-    await this.categoryRepository.delete(category)
+    await this.t.run(async () => {
+      if (deleteReminders) {
+        await this.reminderRepository.deleteManyByCategoryId(categoryId)
+      }
+      if (deleteTransactions) {
+        await this.transactionRepository.deleteManyByCategoryId(categoryId)
+      }
+      await this.categoryRepository.delete(category)
+    }, transactionKey)
 
     return right({})
   }

@@ -5,6 +5,8 @@ import {
   Reminder,
   ReminderProps,
 } from '@/domain/finance/enterprise/entities/reminder'
+import { PrismaReminderMapper } from '@/infra/database/mappers/prisma-reminder-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeReminder(
   override?: Partial<ReminderProps>,
@@ -26,4 +28,15 @@ export function makeReminder(
     id,
   )
   return reminder
+}
+
+export class ReminderFactory {
+  constructor(private prisma: PrismaService) {}
+  async makePrismaReminder(data: Partial<ReminderProps>) {
+    const reminder = makeReminder(data)
+    await this.prisma.reminder.create({
+      data: PrismaReminderMapper.toPrisma(reminder),
+    })
+    return reminder
+  }
 }

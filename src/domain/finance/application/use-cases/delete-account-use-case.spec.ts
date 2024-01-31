@@ -6,6 +6,7 @@ import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-r
 import { InMemoryReminderRepository } from 'test/repositories/in-memory-reminder-repository'
 import { InMemoryTransactionRepository } from 'test/repositories/in-memory-transaction-repository'
 import { InMemoryTransferRepository } from 'test/repositories/in-memory-transfer-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
@@ -15,6 +16,7 @@ let inMemoryAccountRepository: InMemoryAccountRepository
 let inMemoryTransactionRepository: InMemoryTransactionRepository
 let inMemoryReminderRepository: InMemoryReminderRepository
 let inMemoryTransferRepository: InMemoryTransferRepository
+let scope: InMemoryTransactionScope
 let sut: DeleteAccountUseCase
 
 describe('Delete Account', () => {
@@ -23,11 +25,13 @@ describe('Delete Account', () => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
     inMemoryReminderRepository = new InMemoryReminderRepository()
     inMemoryTransferRepository = new InMemoryTransferRepository()
+    scope = new InMemoryTransactionScope()
     sut = new DeleteAccountUseCase(
       inMemoryAccountRepository,
       inMemoryTransactionRepository,
       inMemoryReminderRepository,
       inMemoryTransferRepository,
+      scope,
     )
   })
 

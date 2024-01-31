@@ -5,6 +5,8 @@ import {
   Transaction,
   TransactionProps,
 } from '@/domain/finance/enterprise/entities/transaction'
+import { PrismaTransactionMapper } from '@/infra/database/mappers/prisma-transaction-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeTransaction(
   override?: Partial<TransactionProps>,
@@ -22,4 +24,15 @@ export function makeTransaction(
     id,
   )
   return transaction
+}
+
+export class TransactionFactory {
+  constructor(private prisma: PrismaService) {}
+  async makePrismaTransaction(data: Partial<TransactionProps>) {
+    const transaction = makeTransaction(data)
+    await this.prisma.transaction.create({
+      data: PrismaTransactionMapper.toPrisma(transaction),
+    })
+    return transaction
+  }
 }

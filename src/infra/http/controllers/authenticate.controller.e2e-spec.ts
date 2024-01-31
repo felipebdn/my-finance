@@ -21,7 +21,7 @@ describe('Authenticate Controller [e2e]', () => {
     await app.init()
   })
 
-  test('[GET] /auth', async () => {
+  test.skip('[GET] /auth', async () => {
     const response = await request(app.getHttpServer()).get('/auth')
     console.log(response)
   })

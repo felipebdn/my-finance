@@ -31,6 +31,14 @@ export class Account extends Entity<AccountProps> {
     return this.props.updateAt
   }
 
+  set value(value: number) {
+    this.props.value = value
+  }
+
+  set name(name: string) {
+    this.props.name = name
+  }
+
   public Deposit(value: number) {
     this.props.value = this.props.value + value
   }

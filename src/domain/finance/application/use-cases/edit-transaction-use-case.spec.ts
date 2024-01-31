@@ -4,6 +4,7 @@ import { makeTransaction } from 'test/factories/make-transaction'
 import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-repository'
 import { InMemoryCategoryRepository } from 'test/repositories/in-memory-category-repository'
 import { InMemoryTransactionRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
@@ -12,6 +13,7 @@ import { EditTransactionUseCase } from './edit-transaction-use-case'
 let inMemoryTransactionRepository: InMemoryTransactionRepository
 let inMemoryAccountRepository: InMemoryAccountRepository
 let inMemoryCategoryRepository: InMemoryCategoryRepository
+let scope: InMemoryTransactionScope
 let sut: EditTransactionUseCase
 
 describe('Edit Deposit', () => {
@@ -19,10 +21,12 @@ describe('Edit Deposit', () => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
     inMemoryAccountRepository = new InMemoryAccountRepository()
     inMemoryCategoryRepository = new InMemoryCategoryRepository()
+    scope = new InMemoryTransactionScope()
     sut = new EditTransactionUseCase(
       inMemoryTransactionRepository,
       inMemoryAccountRepository,
       inMemoryCategoryRepository,
+      scope,
     )
   })
 

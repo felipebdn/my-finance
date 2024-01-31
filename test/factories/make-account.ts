@@ -5,6 +5,8 @@ import {
   Account,
   AccountProps,
 } from '@/domain/finance/enterprise/entities/account'
+import { PrismaAccountMapper } from '@/infra/database/mappers/prisma-account-mapper'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeAccount(
   override?: Partial<AccountProps>,
@@ -21,4 +23,15 @@ export function makeAccount(
   )
 
   return account
+}
+
+export class AccountFactory {
+  constructor(private prisma: PrismaService) {}
+  async makePrismaAccount(data: Partial<AccountProps>) {
+    const account = makeAccount(data)
+    await this.prisma.account.create({
+      data: PrismaAccountMapper.toPrisma(account),
+    })
+    return account
+  }
 }

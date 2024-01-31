@@ -3,6 +3,7 @@ import { makeCategory } from 'test/factories/make-category'
 import { InMemoryAccountRepository } from 'test/repositories/in-memory-account-repository'
 import { InMemoryCategoryRepository } from 'test/repositories/in-memory-category-repository'
 import { InMemoryTransactionRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionScope } from 'test/transaction/in-memory-transaction-scope'
 import { expect } from 'vitest'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
@@ -15,6 +16,7 @@ import { NewSpentUseCase } from './new-spent-use-case'
 let inMemoryTransactionRepository: InMemoryTransactionRepository
 let inMemoryAccountRepository: InMemoryAccountRepository
 let inMemoryCategoryRepository: InMemoryCategoryRepository
+let scope: InMemoryTransactionScope
 let sut: NewSpentUseCase
 
 describe('New Spent', () => {
@@ -22,10 +24,12 @@ describe('New Spent', () => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
     inMemoryAccountRepository = new InMemoryAccountRepository()
     inMemoryCategoryRepository = new InMemoryCategoryRepository()
+    scope = new InMemoryTransactionScope()
     sut = new NewSpentUseCase(
       inMemoryTransactionRepository,
       inMemoryAccountRepository,
       inMemoryCategoryRepository,
+      scope,
     )
   })
 
