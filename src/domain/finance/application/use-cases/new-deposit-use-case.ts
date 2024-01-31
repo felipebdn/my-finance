@@ -7,8 +7,10 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 import { Transaction } from '../../enterprise/entities/transaction'
 import { AccountRepository } from '../repositories/account-repository'
+import { CategoryRepository } from '../repositories/category-repository'
 import { TransactionRepository } from '../repositories/transaction-repository'
 import { TransactionScope } from '../transaction/transaction-scope'
+import { ResourceInvalidError } from './errors/resource-invalid-error'
 
 interface NewDepositUseCaseRequest {
   accountId: string
@@ -27,6 +29,7 @@ export class NewDepositUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
     private accountRepository: AccountRepository,
+    private categoryRepository: CategoryRepository,
     private t: TransactionScope,
   ) {}
 
@@ -46,6 +49,11 @@ export class NewDepositUseCase {
 
     if (account.userId.toValue() !== userId) {
       return left(new NotAllowedError())
+    }
+    const category = await this.categoryRepository.findById(categoryId)
+
+    if (!category) {
+      return left(new ResourceInvalidError('category'))
     }
 
     const transaction = Transaction.crete({
