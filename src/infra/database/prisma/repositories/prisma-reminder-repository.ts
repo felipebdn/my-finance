@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { ReminderRepository } from '@/domain/finance/application/repositories/reminder-repository'
 import { Reminder } from '@/domain/finance/enterprise/entities/reminder'
 import { typeTransaction } from '@/domain/finance/enterprise/entities/transaction'
@@ -5,6 +7,7 @@ import { typeTransaction } from '@/domain/finance/enterprise/entities/transactio
 import { PrismaReminderMapper } from '../mappers/prisma-reminder-mapper'
 import { PrismaClientManager, PrismaService } from '../prisma.service'
 
+@Injectable()
 export class PrismaReminderRepository implements ReminderRepository {
   constructor(
     private prisma: PrismaService,

@@ -1,8 +1,11 @@
+import { Injectable } from '@nestjs/common'
+
 import {
   Transaction,
   typeTransaction,
 } from '../../enterprise/entities/transaction'
 
+@Injectable()
 export abstract class TransactionRepository {
   abstract create(transaction: Transaction, t?: string): Promise<void>
   abstract save(transaction: Transaction, t?: string): Promise<void>

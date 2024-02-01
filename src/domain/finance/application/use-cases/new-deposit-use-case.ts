@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 
 import { Either, left, right } from '@/core/either'
@@ -24,7 +25,7 @@ type NewDepositUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
   unknown
 >
-
+@Injectable()
 export class NewDepositUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
@@ -50,9 +51,14 @@ export class NewDepositUseCase {
     if (account.userId.toValue() !== userId) {
       return left(new NotAllowedError())
     }
+
     const category = await this.categoryRepository.findById(categoryId)
 
-    if (!category) {
+    if (
+      !category ||
+      category.userId.toValue() !== userId ||
+      category.type !== 'deposit'
+    ) {
       return left(new ResourceInvalidError('category'))
     }
 

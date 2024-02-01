@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { BetweenDatesParams } from '@/core/repositories/between-dates-params'
 import { TransferRepository } from '@/domain/finance/application/repositories/transfer-repository'
 import { Transfer } from '@/domain/finance/enterprise/entities/transfer'
@@ -5,6 +7,7 @@ import { Transfer } from '@/domain/finance/enterprise/entities/transfer'
 import { PrismaTransferMapper } from '../mappers/prisma-transfer-mapper'
 import { PrismaClientManager, PrismaService } from '../prisma.service'
 
+@Injectable()
 export class PrismaTransferRepository implements TransferRepository {
   constructor(
     private prisma: PrismaService,

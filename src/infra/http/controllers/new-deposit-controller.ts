@@ -38,7 +38,6 @@ export class NewDepositController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(newDepositBodySchema))
   async handle(@Body() body: NewDepositBodySchema) {
-
     const result = await this.newDeposit.execute({
       accountId: body.account_id,
       categoryId: body.category_id,
