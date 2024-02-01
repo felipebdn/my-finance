@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { User, UserProps } from '@/domain/finance/enterprise/entities/user'
@@ -19,6 +20,7 @@ export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {
   return user
 }
 
+@Injectable()
 export class UserFactory {
   constructor(private prisma: PrismaService) {}
   async makePrismaUser(data: Partial<UserProps>) {

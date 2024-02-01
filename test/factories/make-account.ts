@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
@@ -25,8 +26,10 @@ export function makeAccount(
   return account
 }
 
+@Injectable()
 export class AccountFactory {
   constructor(private prisma: PrismaService) {}
+
   async makePrismaAccount(data: Partial<AccountProps>) {
     const account = makeAccount(data)
     await this.prisma.account.create({

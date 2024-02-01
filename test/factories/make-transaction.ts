@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
@@ -26,6 +27,7 @@ export function makeTransaction(
   return transaction
 }
 
+@Injectable()
 export class TransactionFactory {
   constructor(private prisma: PrismaService) {}
   async makePrismaTransaction(data: Partial<TransactionProps>) {

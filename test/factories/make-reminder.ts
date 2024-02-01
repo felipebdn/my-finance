@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
@@ -30,6 +31,7 @@ export function makeReminder(
   return reminder
 }
 
+@Injectable()
 export class ReminderFactory {
   constructor(private prisma: PrismaService) {}
   async makePrismaReminder(data: Partial<ReminderProps>) {

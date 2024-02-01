@@ -5,7 +5,20 @@ meta {
 }
 
 post {
-  url: http://localhost:3333/transaction/deposit
+  url: http://localhost:3333/transactions/deposit
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMjQ0YTQzZS1lZjg3LTQzMzgtYWIxNy03MGM2Y2MxYzI1ZmIiLCJpYXQiOjE3MDY3OTM3NzV9.WG6OR2RXh9Iy6UeSP5CeIHEBXKXDnUY2oHnAjUPiMkhLhOGF0EaFqjL5u1ucxu9zqVqXc8aELIMW7kteawWidUaYL7E2H4vBWQfunHHUX5cZlSKmj1d1Gyb5Mi1hrGEvce1yyCvhc3Bu10SHtqnk11kYU0J1uZZdHLFQuZ_kpl0XZiE_5s0ex09HCV6Bd6O7U7xi2Y2fJHCTsy96vmy2wS-TIOSSiD4Txox_c-AEN0UUieNl5waPhQ2BihW258xL9wWWVZfQl5Gyvp5LDpnEBzDr7gS3ql_sHdOqf1HQDi3xX8dBlE0I77hhi0UURMqI48lONyEKp_cGgLb_eI7-Ew
+}
+
+body:json {
+  {
+    "account_id": "47491ef1-9148-469e-b24f-c4c90fa8c628",
+    "category_id": "c6176843-ba65-4098-b5cf-de93c37a04de",
+    "user_id": "cb319c9d-c93b-42eb-a098-259ccf635792",
+    "value": 50
+  }
 }

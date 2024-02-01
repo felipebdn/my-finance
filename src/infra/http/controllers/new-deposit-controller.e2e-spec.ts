@@ -7,6 +7,7 @@ import { CategoryFactory } from 'test/factories/make-category'
 import { UserFactory } from 'test/factories/make-user'
 
 import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 describe('New Deposit [e2e]', () => {
@@ -19,7 +20,8 @@ describe('New Deposit [e2e]', () => {
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, DatabaseModule],
+      providers: [UserFactory, AccountFactory, CategoryFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -33,7 +35,7 @@ describe('New Deposit [e2e]', () => {
     await app.init()
   })
 
-  test.skip('[POST] /transactions/deposit', async () => {
+  test('[POST] /transactions/deposit', async () => {
     const user = await userFactory.makePrismaUser({})
     const account = await accountFactory.makePrismaAccount({
       userId: user.id,
@@ -52,7 +54,7 @@ describe('New Deposit [e2e]', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         account_id: account.id.toValue(),
-        categoryId: category.id.toValue(),
+        category_id: category.id.toValue(),
         user_id: user.id.toValue(),
         value: 80.4,
       })

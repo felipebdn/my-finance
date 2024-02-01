@@ -8,7 +8,6 @@ import { Env } from '@/infra/env'
 
 const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
-  email: z.string().email(),
 })
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>

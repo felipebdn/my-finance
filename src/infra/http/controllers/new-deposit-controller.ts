@@ -20,7 +20,7 @@ import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 
 const newDepositBodySchema = z.object({
   account_id: z.string(),
-  categoryId: z.string(),
+  category_id: z.string(),
   user_id: z.string(),
   value: z.coerce.number(),
   description: z.string().optional(),
@@ -29,18 +29,19 @@ const newDepositBodySchema = z.object({
 
 type NewDepositBodySchema = z.infer<typeof newDepositBodySchema>
 
-@Controller('/transactions')
+@Controller('/transactions/deposit')
 @UseGuards(JwtAuthGuard)
-export class AuthenticateController {
+export class NewDepositController {
   constructor(private newDeposit: NewDepositUseCase) {}
 
-  @Post('/deposit')
+  @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(newDepositBodySchema))
   async handle(@Body() body: NewDepositBodySchema) {
+
     const result = await this.newDeposit.execute({
       accountId: body.account_id,
-      categoryId: body.categoryId,
+      categoryId: body.category_id,
       userId: body.user_id,
       value: body.value,
       date: body.date,

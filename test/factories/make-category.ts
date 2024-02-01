@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import {
@@ -24,6 +25,7 @@ export function makeCategory(
   return category
 }
 
+@Injectable()
 export class CategoryFactory {
   constructor(private prisma: PrismaService) {}
   async makePrismaCategory(data: Partial<CategoryProps>) {
