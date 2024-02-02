@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 
 import { Either, left, right } from '@/core/either'
@@ -27,6 +28,7 @@ type NewSpentUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class NewSpentUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
@@ -43,6 +45,7 @@ export class NewSpentUseCase {
     description,
     userId,
   }: NewSpentUseCaseRequest): Promise<NewSpentUseCaseResponse> {
+    console.log('aqui')
     const account = await this.accountRepository.findById(accountId)
 
     if (!account) {
@@ -74,6 +77,7 @@ export class NewSpentUseCase {
     })
 
     account.Spent(value)
+    console.log(account.value)
 
     const transactionKey = randomUUID()
 

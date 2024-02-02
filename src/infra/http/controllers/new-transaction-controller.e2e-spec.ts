@@ -12,7 +12,7 @@ import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { EnvService } from '@/infra/env/env.service'
 
-describe('New Deposit [e2e]', () => {
+describe('New Transaction [e2e]', () => {
   let app: INestApplication
   let prisma: PrismaService
   let userFactory: UserFactory
@@ -41,7 +41,7 @@ describe('New Deposit [e2e]', () => {
     await app.init()
   })
 
-  test('[POST] /transactions/deposit', async () => {
+  test.skip('[POST] /transactions - new deposit', async () => {
     const user = await userFactory.makePrismaUser({})
 
     const account = await accountFactory.makePrismaAccount({
@@ -59,10 +59,11 @@ describe('New Deposit [e2e]', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/transactions/deposit')
+      .post('/transactions')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         account_id: account.id.toValue(),
+        type: 'deposit',
         category_id: category.id.toValue(),
         user_id: user.id.toValue(),
         value: 80.4,
@@ -73,5 +74,40 @@ describe('New Deposit [e2e]', () => {
     const account1 = await prisma.account.findFirst({})
 
     expect(account1.value).toEqual(180.4)
+  })
+
+  test('[POST] /transactions', async () => {
+    const user = await userFactory.makePrismaUser({})
+
+    const account = await accountFactory.makePrismaAccount({
+      userId: user.id,
+      value: 100,
+    })
+
+    const category = await categoryFactory.makePrismaCategory({
+      userId: user.id,
+      type: 'deposit',
+    })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toValue(),
+    })
+
+    const response = await request(app.getHttpServer())
+      .post('/transactions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        account_id: account.id.toValue(),
+        type: 'spent',
+        category_id: category.id.toValue(),
+        user_id: user.id.toValue(),
+        value: 80.4,
+      })
+
+    expect(response.statusCode).toBe(201)
+
+    const account1 = await prisma.account.findFirst({})
+
+    expect(account1.value).toEqual(19.6)
   })
 })

@@ -13,14 +13,15 @@ import { z } from 'zod'
 
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
-import { ResourceInvalidError } from '@/domain/finance/application/use-cases/errors/resource-invalid-error'
 import { NewDepositUseCase } from '@/domain/finance/application/use-cases/new-deposit-use-case'
+import { NewSpentUseCase } from '@/domain/finance/application/use-cases/new-spent-use-case'
 import { JwtAuthGuard } from '@/infra/auth/utils-jwt/jwt-auth.guard'
 
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 
 const newDepositBodySchema = z.object({
   account_id: z.string(),
+  type: z.enum(['deposit', 'spent']),
   category_id: z.string(),
   user_id: z.string(),
   value: z.coerce.number(),
@@ -30,16 +31,21 @@ const newDepositBodySchema = z.object({
 
 type NewDepositBodySchema = z.infer<typeof newDepositBodySchema>
 
-@Controller('/transactions/deposit')
+@Controller('/transactions')
 @UseGuards(JwtAuthGuard)
 export class NewDepositController {
-  constructor(private newDeposit: NewDepositUseCase) {}
+  constructor(
+    private newDeposit: NewDepositUseCase,
+    private newSpent: NewSpentUseCase,
+  ) {}
 
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(newDepositBodySchema))
   async handle(@Body() body: NewDepositBodySchema) {
-    const result = await this.newDeposit.execute({
+    const sut = body.type === 'deposit' ? this.newDeposit : this.newSpent
+
+    const result = await sut.execute({
       accountId: body.account_id,
       categoryId: body.category_id,
       userId: body.user_id,
@@ -56,8 +62,6 @@ export class NewDepositController {
           throw new NotFoundException(error.message)
         case NotAllowedError:
           throw new UnauthorizedException(error.message)
-        case ResourceInvalidError:
-          throw new BadRequestException(error.message)
         default:
           throw new BadRequestException(error.message)
       }

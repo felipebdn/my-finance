@@ -1,6 +1,7 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { convertValueMonetary } from '@/utils/convert-value-monetary'
 
 export interface AccountProps {
   userId: UniqueEntityId
@@ -40,11 +41,13 @@ export class Account extends Entity<AccountProps> {
   }
 
   public Deposit(value: number) {
-    this.props.value = this.props.value + value
+    this.props.value = convertValueMonetary(this.props.value + value)
   }
 
   public Spent(value: number) {
-    this.props.value = this.props.value - value
+    console.log(convertValueMonetary(this.props.value - value))
+
+    this.props.value = convertValueMonetary(this.props.value - value)
   }
 
   static create(
