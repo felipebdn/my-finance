@@ -26,7 +26,7 @@ export class CreateCategoryUseCase {
     if (category) {
       return left(new ResourceAlreadyExistsError())
     }
-    const newCategory = Category.crete({
+    const newCategory = Category.create({
       name,
       type: type as typeTransaction,
       userId: new UniqueEntityId(userId),

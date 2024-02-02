@@ -13,7 +13,7 @@ export function makeTransfer(
   override?: Partial<TransferProps>,
   id?: UniqueEntityId,
 ) {
-  const transfer = Transfer.crete(
+  const transfer = Transfer.create(
     {
       destinyId: new UniqueEntityId(),
       referentId: new UniqueEntityId(),

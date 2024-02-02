@@ -46,7 +46,7 @@ export class Transfer extends Entity<TransferProps> {
     return this.props.updatedAt
   }
 
-  static crete(
+  static create(
     props: Optional<TransferProps, 'createdAt' | 'date'>,
     id?: UniqueEntityId,
   ) {

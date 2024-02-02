@@ -56,7 +56,7 @@ export class NewTransferUseCase {
       return left(new InsufficientBalanceError())
     }
 
-    const transfer = Transfer.crete({
+    const transfer = Transfer.create({
       destinyId: new UniqueEntityId(destinyId),
       referentId: new UniqueEntityId(referentId),
       userId: new UniqueEntityId(userId),

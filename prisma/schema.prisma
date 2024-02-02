@@ -28,7 +28,7 @@ model User {
 model Account {
   id        String    @id @default(uuid())
   name      String
-  value     Decimal
+  value     Float
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
@@ -45,7 +45,7 @@ model Account {
 
 model Transfer {
   id          String    @id @default(uuid())
-  value       Decimal
+  value       Float
   date        DateTime
   description String?
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -86,7 +86,7 @@ model Category {
 model Transaction {
   id          String    @id @default(uuid())
   type        Type
-  value       Decimal
+  value       Float
   description String?
   date        DateTime
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -116,7 +116,7 @@ enum Frequency {
 model Reminder {
   id          String    @id @default(uuid())
   name        String
-  value       Decimal
+  value       Float
   type        Type
   frequency   Frequency
   date        DateTime

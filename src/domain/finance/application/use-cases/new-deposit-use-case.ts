@@ -62,7 +62,7 @@ export class NewDepositUseCase {
       return left(new ResourceInvalidError('category'))
     }
 
-    const transaction = Transaction.crete({
+    const transaction = Transaction.create({
       type: 'deposit',
       value,
       date,
@@ -77,8 +77,8 @@ export class NewDepositUseCase {
     const transactionKey = randomUUID()
 
     await this.t.run(async () => {
-      await this.accountRepository.save(account)
-      await this.transactionRepository.create(transaction)
+      await this.accountRepository.save(account, transactionKey)
+      await this.transactionRepository.create(transaction, transactionKey)
     }, transactionKey)
 
     return right({})

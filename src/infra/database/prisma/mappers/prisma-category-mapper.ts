@@ -5,7 +5,7 @@ import { Category } from '@/domain/finance/enterprise/entities/category'
 
 export class PrismaCategoryMapper {
   static toDomain(raw: PrismaCategory): Category {
-    return Category.crete(
+    return Category.create(
       {
         name: raw.name,
         type: raw.type,
@@ -19,6 +19,7 @@ export class PrismaCategoryMapper {
 
   static toPrisma(category: Category): Prisma.CategoryUncheckedCreateInput {
     return {
+      id: category.id.toValue(),
       name: category.name,
       type: category.type,
       userId: category.userId.toValue(),

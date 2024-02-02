@@ -5,12 +5,12 @@ import { Transfer } from '@/domain/finance/enterprise/entities/transfer'
 
 export class PrismaTransferMapper {
   static toDomain(raw: PrismaTransfer): Transfer {
-    return Transfer.crete(
+    return Transfer.create(
       {
         destinyId: new UniqueEntityId(raw.destinyId),
         referentId: new UniqueEntityId(raw.referentId),
         userId: new UniqueEntityId(raw.userId),
-        value: raw.value.toNumber(),
+        value: raw.value,
         createdAt: raw.createdAt,
         date: raw.date,
         description: raw.description,

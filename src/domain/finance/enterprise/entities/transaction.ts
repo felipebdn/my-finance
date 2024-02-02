@@ -81,7 +81,7 @@ export class Transaction extends Entity<TransactionProps> {
     this.props.updatedAt = new Date()
   }
 
-  static crete(
+  static create(
     props: Optional<TransactionProps, 'createdAt' | 'date'>,
     id?: UniqueEntityId,
   ) {

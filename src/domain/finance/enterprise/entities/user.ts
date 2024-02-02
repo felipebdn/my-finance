@@ -48,7 +48,7 @@ export class User extends Entity<UserProps> {
     return this.props.updatedAt
   }
 
-  static crete(props: Optional<UserProps, 'createdAt'>, id?: UniqueEntityId) {
+  static create(props: Optional<UserProps, 'createdAt'>, id?: UniqueEntityId) {
     const user = new User(
       {
         ...props,

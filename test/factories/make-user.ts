@@ -7,7 +7,7 @@ import { PrismaUserMapper } from '@/infra/database/prisma/mappers/prisma-user-ma
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {
-  const user = User.crete(
+  const user = User.create(
     {
       email: faker.internet.email(),
       avatarUrl: faker.internet.url(),
@@ -23,8 +23,8 @@ export function makeUser(override?: Partial<UserProps>, id?: UniqueEntityId) {
 @Injectable()
 export class UserFactory {
   constructor(private prisma: PrismaService) {}
-  async makePrismaUser(data: Partial<UserProps>) {
-    const user = makeUser(data)
+  async makePrismaUser(data: Partial<UserProps>, id?: UniqueEntityId) {
+    const user = makeUser(data, id)
     await this.prisma.user.create({
       data: PrismaUserMapper.toPrisma(user),
     })

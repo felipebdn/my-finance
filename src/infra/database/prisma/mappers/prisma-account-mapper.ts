@@ -9,7 +9,7 @@ export class PrismaAccountMapper {
       {
         name: raw.name,
         userId: new UniqueEntityId(raw.userId),
-        value: raw.value.toNumber(),
+        value: raw.value,
         createdAt: raw.createdAt,
         updateAt: raw.updatedAt,
       },

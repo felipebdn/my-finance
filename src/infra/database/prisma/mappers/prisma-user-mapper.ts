@@ -5,7 +5,7 @@ import { User } from '@/domain/finance/enterprise/entities/user'
 
 export class PrismaUserMapper {
   static toDomain(raw: PrismaUser): User {
-    return User.crete(
+    return User.create(
       {
         email: raw.email,
         name: raw.name,

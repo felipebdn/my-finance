@@ -63,7 +63,7 @@ export class NewSpentUseCase {
       return left(new ResourceNotFoundError('category'))
     }
 
-    const transaction = Transaction.crete({
+    const transaction = Transaction.create({
       type: 'spent',
       value,
       date,

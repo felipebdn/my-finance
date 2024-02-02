@@ -48,7 +48,7 @@ export class AuthenticateUserUseCase {
         }),
       })
     } else {
-      const newUser = User.crete({
+      const newUser = User.create({
         googleId,
         avatarUrl,
         email,

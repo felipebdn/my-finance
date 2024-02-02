@@ -15,7 +15,7 @@ export class PrismaReminderMapper {
         name: raw.name,
         type: raw.type,
         userId: new UniqueEntityId(raw.userId),
-        value: raw.value.toNumber(),
+        value: raw.value,
         updatedAt: raw.updatedAt,
       },
       new UniqueEntityId(raw.id),

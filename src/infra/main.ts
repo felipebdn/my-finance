@@ -1,17 +1,16 @@
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import * as session from 'express-session'
 
 import { AppModule } from './app.module'
-import { Env } from './env'
+import { EnvService } from './env/env.service'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     // logger: false,
   })
-  const configService = app.get<ConfigService<Env>>(ConfigService)
-  const port = configService.get('PORT', { infer: true })
-  const secret = configService.get('SESSION_SECRET', { infer: true })
+  const envService = app.get(EnvService)
+  const port = envService.get('PORT')
+  const secret = envService.get('SESSION_SECRET')
 
   app.use(
     session({

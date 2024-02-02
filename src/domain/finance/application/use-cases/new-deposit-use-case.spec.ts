@@ -9,6 +9,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
+import { ResourceInvalidError } from './errors/resource-invalid-error'
 import { NewDepositUseCase } from './new-deposit-use-case'
 
 let inMemoryTransactionRepository: InMemoryTransactionRepository
@@ -90,5 +91,83 @@ describe('New Deposit', () => {
 
     expect(result.isLeft()).toBe(true)
     expect(result.value).toBeInstanceOf(NotAllowedError)
+  })
+
+  it('should not be able to make a new deposit, category not found', async () => {
+    const account = makeAccount(
+      {
+        userId: new UniqueEntityId('user-01'),
+      },
+      new UniqueEntityId('account-01'),
+    )
+    inMemoryAccountRepository.items.push(account)
+
+    const result = await sut.execute({
+      accountId: 'account-01',
+      categoryId: 'category-id',
+      userId: 'user-01',
+      value: 58.87,
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceInvalidError)
+  })
+
+  it('should not be able to make a new deposit, user_id of the categories are different', async () => {
+    const account = makeAccount(
+      {
+        userId: new UniqueEntityId('user-01'),
+      },
+      new UniqueEntityId('account-01'),
+    )
+    inMemoryAccountRepository.items.push(account)
+
+    const category = makeCategory(
+      {
+        userId: new UniqueEntityId('user-02'),
+        type: 'deposit',
+      },
+      new UniqueEntityId('category-01'),
+    )
+    inMemoryCategoryRepository.items.push(category)
+
+    const result = await sut.execute({
+      accountId: 'account-01',
+      categoryId: 'category-01',
+      userId: 'user-01',
+      value: 58.87,
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceInvalidError)
+  })
+
+  it('should not be able to make a new deposit, category type is different', async () => {
+    const account = makeAccount(
+      {
+        userId: new UniqueEntityId('user-01'),
+      },
+      new UniqueEntityId('account-01'),
+    )
+    inMemoryAccountRepository.items.push(account)
+
+    const category = makeCategory(
+      {
+        userId: new UniqueEntityId('user-01'),
+        type: 'spent',
+      },
+      new UniqueEntityId('category-01'),
+    )
+    inMemoryCategoryRepository.items.push(category)
+
+    const result = await sut.execute({
+      accountId: 'account-01',
+      categoryId: 'category-01',
+      userId: 'user-01',
+      value: 58.87,
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceInvalidError)
   })
 })

@@ -5,7 +5,9 @@ import { ClsModule } from 'nestjs-cls'
 
 import { AuthModule } from './auth/auth.module'
 import { DatabaseModule } from './database/database.module'
-import { envSchema } from './env'
+import { envSchema } from './env/env'
+import { EnvModule } from './env/env.module'
+import { EnvService } from './env/env.service'
 import { HttpModule } from './http/http.module'
 
 @Module({
@@ -23,8 +25,9 @@ import { HttpModule } from './http/http.module'
     AuthModule,
     HttpModule,
     DatabaseModule,
+    EnvModule,
     PassportModule.register({ session: true }),
   ],
-  providers: [],
+  providers: [EnvService],
 })
 export class AppModule {}

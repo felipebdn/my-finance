@@ -13,7 +13,7 @@ export function makeTransaction(
   override?: Partial<TransactionProps>,
   id?: UniqueEntityId,
 ) {
-  const transaction = Transaction.crete(
+  const transaction = Transaction.create(
     {
       accountId: new UniqueEntityId(),
       categoryId: new UniqueEntityId(),

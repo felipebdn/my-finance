@@ -13,7 +13,7 @@ export function makeCategory(
   override?: Partial<CategoryProps>,
   id?: UniqueEntityId,
 ) {
-  const category = Category.crete(
+  const category = Category.create(
     {
       userId: new UniqueEntityId(),
       name: faker.person.firstName(),

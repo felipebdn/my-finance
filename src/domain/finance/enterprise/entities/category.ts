@@ -45,7 +45,7 @@ export class Category extends Entity<CategoryProps> {
     this.props.updatedAt = new Date()
   }
 
-  static crete(
+  static create(
     props: Optional<CategoryProps, 'createdAt'>,
     id?: UniqueEntityId,
   ) {

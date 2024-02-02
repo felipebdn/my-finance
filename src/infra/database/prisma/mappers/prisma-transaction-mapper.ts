@@ -5,13 +5,13 @@ import { Transaction } from '@/domain/finance/enterprise/entities/transaction'
 
 export class PrismaTransactionMapper {
   static toDomain(raw: PrismaTransaction): Transaction {
-    return Transaction.crete(
+    return Transaction.create(
       {
         accountId: new UniqueEntityId(raw.accountId),
         categoryId: new UniqueEntityId(raw.categoryId),
         type: raw.type,
         userId: new UniqueEntityId(raw.userId),
-        value: raw.value.toNumber(),
+        value: raw.value,
         createdAt: raw.createdAt,
         date: raw.date,
         description: raw.description,
