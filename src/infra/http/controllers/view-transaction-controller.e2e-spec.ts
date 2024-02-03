@@ -10,7 +10,6 @@ import { configureSession } from 'test/utils/test-utils'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { EnvService } from '@/infra/env/env.service'
 
 describe('Get Transaction [e2e]', () => {
