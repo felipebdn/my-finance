@@ -67,6 +67,7 @@ export class PrismaAccountRepository implements AccountRepository {
         userId,
       },
     })
+
     return accounts.map(PrismaAccountMapper.toDomain)
   }
 

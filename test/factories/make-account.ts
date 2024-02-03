@@ -30,8 +30,8 @@ export function makeAccount(
 export class AccountFactory {
   constructor(private prisma: PrismaService) {}
 
-  async makePrismaAccount(data: Partial<AccountProps>) {
-    const account = makeAccount(data)
+  async makePrismaAccount(data: Partial<AccountProps>, id?: UniqueEntityId) {
+    const account = makeAccount(data, id)
     await this.prisma.account.create({
       data: PrismaAccountMapper.toPrisma(account),
     })
