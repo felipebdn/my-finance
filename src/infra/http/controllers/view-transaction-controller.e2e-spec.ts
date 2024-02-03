@@ -15,7 +15,6 @@ import { EnvService } from '@/infra/env/env.service'
 
 describe('Get Transaction [e2e]', () => {
   let app: INestApplication
-  let prisma: PrismaService
   let userFactory: UserFactory
   let accountFactory: AccountFactory
   let transactionFactory: TransactionFactory
@@ -36,7 +35,6 @@ describe('Get Transaction [e2e]', () => {
 
     app = moduleRef.createNestApplication()
 
-    prisma = moduleRef.get(PrismaService)
     userFactory = moduleRef.get(UserFactory)
     accountFactory = moduleRef.get(AccountFactory)
     categoryFactory = moduleRef.get(CategoryFactory)
