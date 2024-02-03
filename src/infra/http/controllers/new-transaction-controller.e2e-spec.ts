@@ -41,7 +41,7 @@ describe('New Transaction [e2e]', () => {
     await app.init()
   })
 
-  test.skip('[POST] /transactions - new deposit', async () => {
+  test('[POST] /transactions - new deposit', async () => {
     const user = await userFactory.makePrismaUser({})
 
     const account = await accountFactory.makePrismaAccount({
@@ -66,17 +66,17 @@ describe('New Transaction [e2e]', () => {
         type: 'deposit',
         category_id: category.id.toValue(),
         user_id: user.id.toValue(),
-        value: 80.4,
+        value: 80.44,
       })
 
     expect(response.statusCode).toBe(201)
 
     const account1 = await prisma.account.findFirst({})
 
-    expect(account1.value).toEqual(180.4)
+    expect(account1.value).toEqual(180.44)
   })
 
-  test('[POST] /transactions', async () => {
+  test('[POST] /transactions - new spent', async () => {
     const user = await userFactory.makePrismaUser({})
 
     const account = await accountFactory.makePrismaAccount({
@@ -86,7 +86,7 @@ describe('New Transaction [e2e]', () => {
 
     const category = await categoryFactory.makePrismaCategory({
       userId: user.id,
-      type: 'deposit',
+      type: 'spent',
     })
 
     const accessToken = jwt.sign({
@@ -106,8 +106,8 @@ describe('New Transaction [e2e]', () => {
 
     expect(response.statusCode).toBe(201)
 
-    const account1 = await prisma.account.findFirst({})
+    const account1 = await prisma.account.findMany()
 
-    expect(account1.value).toEqual(19.6)
+    expect(account1[1].value).toEqual(19.6)
   })
 })

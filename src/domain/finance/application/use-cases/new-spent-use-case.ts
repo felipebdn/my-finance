@@ -45,7 +45,6 @@ export class NewSpentUseCase {
     description,
     userId,
   }: NewSpentUseCaseRequest): Promise<NewSpentUseCaseResponse> {
-    console.log('aqui')
     const account = await this.accountRepository.findById(accountId)
 
     if (!account) {
@@ -77,13 +76,12 @@ export class NewSpentUseCase {
     })
 
     account.Spent(value)
-    console.log(account.value)
 
     const transactionKey = randomUUID()
 
     await this.t.run(async () => {
-      await this.accountRepository.save(account)
-      await this.transactionRepository.create(transaction)
+      await this.accountRepository.save(account, transactionKey)
+      await this.transactionRepository.create(transaction, transactionKey)
     }, transactionKey)
 
     return right({ transaction })

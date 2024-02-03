@@ -45,8 +45,6 @@ export class Account extends Entity<AccountProps> {
   }
 
   public Spent(value: number) {
-    console.log(convertValueMonetary(this.props.value - value))
-
     this.props.value = convertValueMonetary(this.props.value - value)
   }
 
