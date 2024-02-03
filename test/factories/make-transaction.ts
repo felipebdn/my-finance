@@ -30,8 +30,11 @@ export function makeTransaction(
 @Injectable()
 export class TransactionFactory {
   constructor(private prisma: PrismaService) {}
-  async makePrismaTransaction(data: Partial<TransactionProps>) {
-    const transaction = makeTransaction(data)
+  async makePrismaTransaction(
+    data: Partial<TransactionProps>,
+    id?: UniqueEntityId,
+  ) {
+    const transaction = makeTransaction(data, id)
     await this.prisma.transaction.create({
       data: PrismaTransactionMapper.toPrisma(transaction),
     })
