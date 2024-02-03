@@ -60,4 +60,43 @@ describe('New Transaction [e2e]', () => {
       }),
     )
   })
+  test('[GET] /accounts - get resume of accounts', async () => {
+    const user = await userFactory.makePrismaUser({})
+    const account1 = await accountFactory.makePrismaAccount({
+      userId: user.id,
+      value: 100,
+    })
+    const account2 = await accountFactory.makePrismaAccount({
+      userId: user.id,
+      value: 50.74,
+    })
+
+    const accessToken = jwt.sign({
+      sub: user.id.toValue(),
+    })
+    const response1 = await request(app.getHttpServer())
+      .get(
+        `/accounts/${user.id.toValue()}?account_id=${account1.id.toString()}`,
+      )
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response1.statusCode).toBe(200)
+    expect(response1.body).toEqual(
+      expect.objectContaining({
+        value: 100,
+      }),
+    )
+    const response2 = await request(app.getHttpServer())
+      .get(
+        `/accounts/${user.id.toValue()}?account_id=${account2.id.toString()}`,
+      )
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response2.statusCode).toBe(200)
+    expect(response2.body).toEqual(
+      expect.objectContaining({
+        value: 50.74,
+      }),
+    )
+  })
 })
