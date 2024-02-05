@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto'
 
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
@@ -19,6 +21,7 @@ interface DeleteCategoryUseCaseRequest {
 
 type DeleteCategoryUseCaseResponse = Either<ResourceAlreadyExistsError, unknown>
 
+@Injectable()
 export class DeleteCategoryUseCase {
   constructor(
     private categoryRepository: CategoryRepository,

@@ -4,6 +4,7 @@ import {
   ConflictException,
   Controller,
   HttpCode,
+  NotFoundException,
   Post,
   UnauthorizedException,
   UseGuards,
@@ -49,7 +50,7 @@ export class EditCategoryController {
 
       switch (error.constructor) {
         case ResourceNotFoundError:
-          throw new ConflictException(error.message)
+          throw new NotFoundException(error.message)
         case NotAllowedError:
           throw new UnauthorizedException(error.message)
         case ResourceAlreadyExistsError:
