@@ -7,6 +7,7 @@ import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/ge
 import { ListTransactionWithFilterUserCase } from '@/domain/finance/application/use-cases/list-transactions-by-type-use-case'
 import { NewDepositUseCase } from '@/domain/finance/application/use-cases/new-deposit-use-case'
 import { NewSpentUseCase } from '@/domain/finance/application/use-cases/new-spent-use-case'
+import { NewTransferUseCase } from '@/domain/finance/application/use-cases/new-transfer-use-case'
 
 import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
@@ -15,6 +16,7 @@ import { CreateAccountController } from './controllers/create-account-controller
 import { GetResumeController } from './controllers/get-resume-account-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
 import { NewDepositController } from './controllers/new-transaction-controller'
+import { NewTransferController } from './controllers/new-transfer-controller'
 import { ViewTransactionController } from './controllers/view-transaction-controller'
 
 @Module({
@@ -27,6 +29,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     GetTransactionUseCase,
     ListTransactionWithFilterUserCase,
     CreateAccountUseCase,
+    NewTransferUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -35,6 +38,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     ViewTransactionController,
     ListTransactionsByTypeController,
     CreateAccountController,
+    NewTransferController,
   ],
 })
 export class HttpModule {}
