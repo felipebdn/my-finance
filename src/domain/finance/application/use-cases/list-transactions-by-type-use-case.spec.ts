@@ -3,15 +3,15 @@ import { InMemoryTransactionRepository } from 'test/repositories/in-memory-trans
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-import { ListTransactionWithFilter } from './list-transactions-by-type-use-case'
+import { ListTransactionWithFilterUserCase } from './list-transactions-by-type-use-case'
 
 let inMemoryTransactionRepository: InMemoryTransactionRepository
-let sut: ListTransactionWithFilter
+let sut: ListTransactionWithFilterUserCase
 
 describe('List Transactions', () => {
   beforeEach(() => {
     inMemoryTransactionRepository = new InMemoryTransactionRepository()
-    sut = new ListTransactionWithFilter(inMemoryTransactionRepository)
+    sut = new ListTransactionWithFilterUserCase(inMemoryTransactionRepository)
   })
 
   it('should be able to list transactions by filter with account id', async () => {

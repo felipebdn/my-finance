@@ -35,6 +35,7 @@ export class TransactionFactory {
     id?: UniqueEntityId,
   ) {
     const transaction = makeTransaction(data, id)
+
     await this.prisma.transaction.create({
       data: PrismaTransactionMapper.toPrisma(transaction),
     })

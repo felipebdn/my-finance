@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
 
 import { Transaction } from '../../enterprise/entities/transaction'
 import { TransactionRepository } from '../repositories/transaction-repository'
 
-interface ListTransactionWithFilterRequest {
+interface ListTransactionWithFilterUserCaseRequest {
   type: string
   userId: string
   inDate: Date
@@ -11,14 +13,15 @@ interface ListTransactionWithFilterRequest {
   accountId?: string
 }
 
-type ListTransactionWithFilterResponse = Either<
+type ListTransactionWithFilterUserCaseResponse = Either<
   unknown,
   {
     transactions: Transaction[]
   }
 >
 
-export class ListTransactionWithFilter {
+@Injectable()
+export class ListTransactionWithFilterUserCase {
   constructor(private transactionRepository: TransactionRepository) {}
 
   async execute({
@@ -27,7 +30,7 @@ export class ListTransactionWithFilter {
     userId,
     inDate,
     outDate,
-  }: ListTransactionWithFilterRequest): Promise<ListTransactionWithFilterResponse> {
+  }: ListTransactionWithFilterUserCaseRequest): Promise<ListTransactionWithFilterUserCaseResponse> {
     if (accountId) {
       const transactions = await this.transactionRepository.findManyByFilter(
         type as 'deposit' | 'spent',
