@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
@@ -18,6 +20,7 @@ type EditCategoryUseCaseResponse = Either<
   unknown
 >
 
+@Injectable()
 export class EditCategoryUseCase {
   constructor(private categoryRepository: CategoryRepository) {}
 
