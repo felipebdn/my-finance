@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 
 import { AuthenticateUserUseCase } from '@/domain/finance/application/use-cases/authenticate-user-use-case'
+import { CreateAccountUseCase } from '@/domain/finance/application/use-cases/create-account-use-case'
 import { GetResumeUseCase } from '@/domain/finance/application/use-cases/get-resume-accounts-use-case'
 import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/get-transaction-use-case'
 import { ListTransactionWithFilterUserCase } from '@/domain/finance/application/use-cases/list-transactions-by-type-use-case'
@@ -10,6 +11,7 @@ import { NewSpentUseCase } from '@/domain/finance/application/use-cases/new-spen
 import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
 import { AuthenticateController } from './controllers/authenticate-controller'
+import { CreateAccountController } from './controllers/create-account-controller'
 import { GetResumeController } from './controllers/get-resume-account-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
 import { NewDepositController } from './controllers/new-transaction-controller'
@@ -24,6 +26,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     GetResumeUseCase,
     GetTransactionUseCase,
     ListTransactionWithFilterUserCase,
+    CreateAccountUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -31,6 +34,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     GetResumeController,
     ViewTransactionController,
     ListTransactionsByTypeController,
+    CreateAccountController,
   ],
 })
 export class HttpModule {}

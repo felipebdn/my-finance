@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
@@ -13,6 +15,7 @@ interface CreateAccountUseCaseRequest {
 
 type CreateAccountUseCaseResponse = Either<ResourceAlreadyExistsError, unknown>
 
+@Injectable()
 export class CreateAccountUseCase {
   constructor(private accountRepository: AccountRepository) {}
 
