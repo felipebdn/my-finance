@@ -24,6 +24,7 @@ export class PrismaReminderMapper {
 
   static toPrisma(reminder: Reminder): Prisma.ReminderUncheckedCreateInput {
     return {
+      id: reminder.id.toValue(),
       accountId: reminder.accountId.toValue(),
       categoryId: reminder.categoryId.toValue(),
       date: reminder.date,

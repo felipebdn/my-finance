@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
 
 import { Reminder } from '../../enterprise/entities/reminder'
@@ -16,6 +18,7 @@ type ListRemindersUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class ListRemindersUseCase {
   constructor(private reminderRepository: ReminderRepository) {}
 

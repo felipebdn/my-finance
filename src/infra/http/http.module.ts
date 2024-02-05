@@ -4,6 +4,7 @@ import { AuthenticateUserUseCase } from '@/domain/finance/application/use-cases/
 import { CreateAccountUseCase } from '@/domain/finance/application/use-cases/create-account-use-case'
 import { GetResumeUseCase } from '@/domain/finance/application/use-cases/get-resume-accounts-use-case'
 import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/get-transaction-use-case'
+import { ListRemindersUseCase } from '@/domain/finance/application/use-cases/list-reminders-use-case'
 import { ListTransactionWithFilterUserCase } from '@/domain/finance/application/use-cases/list-transactions-by-type-use-case'
 import { NewDepositUseCase } from '@/domain/finance/application/use-cases/new-deposit-use-case'
 import { NewReminderUseCase } from '@/domain/finance/application/use-cases/new-reminder-use-case'
@@ -15,6 +16,7 @@ import { DatabaseModule } from '../database/database.module'
 import { AuthenticateController } from './controllers/authenticate-controller'
 import { CreateAccountController } from './controllers/create-account-controller'
 import { GetResumeController } from './controllers/get-resume-account-controller'
+import { ListRemindersController } from './controllers/list-reminders-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
 import { NewReminderController } from './controllers/new-reminder-controller'
 import { NewDepositController } from './controllers/new-transaction-controller'
@@ -33,6 +35,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     CreateAccountUseCase,
     NewTransferUseCase,
     NewReminderUseCase,
+    ListRemindersUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -43,6 +46,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     CreateAccountController,
     NewTransferController,
     NewReminderController,
+    ListRemindersController,
   ],
 })
 export class HttpModule {}
