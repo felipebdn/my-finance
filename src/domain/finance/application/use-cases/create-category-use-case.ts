@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
@@ -14,6 +16,7 @@ interface CreateCategoryUseCaseRequest {
 
 type CreateCategoryUseCaseResponse = Either<ResourceAlreadyExistsError, unknown>
 
+@Injectable()
 export class CreateCategoryUseCase {
   constructor(private categoryRepository: CategoryRepository) {}
 
