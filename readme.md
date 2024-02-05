@@ -3,7 +3,7 @@
 - [x] O usuário pode visualizar uma transação única.
 - [x] O usuário pode visualizar as transações de depósito e de gasto de cada conta.
 - [x] O usuário pode criar mais uma conta de saldo.
-- [ ] O usuário pode fazer uma transferência entre contas.
+- [x] O usuário pode fazer uma transferência entre contas.
 - [ ] O usuário pode criar um lembrete de de pagamento.
 - [ ] O usuário pode visualizar seus lembretes de pagamento.
 - [ ] O usuário pode cria uma categoria de depósito e de gasto.
