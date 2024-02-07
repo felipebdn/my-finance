@@ -28,8 +28,8 @@ export function makeCategory(
 @Injectable()
 export class CategoryFactory {
   constructor(private prisma: PrismaService) {}
-  async makePrismaCategory(data: Partial<CategoryProps>) {
-    const category = makeCategory(data)
+  async makePrismaCategory(data: Partial<CategoryProps>, id?: UniqueEntityId) {
+    const category = makeCategory(data, id)
     await this.prisma.category.create({
       data: PrismaCategoryMapper.toPrisma(category),
     })

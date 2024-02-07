@@ -34,8 +34,8 @@ export function makeReminder(
 @Injectable()
 export class ReminderFactory {
   constructor(private prisma: PrismaService) {}
-  async makePrismaReminder(data: Partial<ReminderProps>) {
-    const reminder = makeReminder(data)
+  async makePrismaReminder(data: Partial<ReminderProps>, id?: UniqueEntityId) {
+    const reminder = makeReminder(data, id)
     await this.prisma.reminder.create({
       data: PrismaReminderMapper.toPrisma(reminder),
     })

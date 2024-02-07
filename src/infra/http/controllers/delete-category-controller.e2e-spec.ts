@@ -55,6 +55,7 @@ describe('Delete Category [e2e]', () => {
 
   test('[DELETE] /category/delete - delete category', async () => {
     const user = await userFactory.makePrismaUser({})
+
     const account = await accountFactory.makePrismaAccount({
       userId: user.id,
     })
@@ -63,6 +64,7 @@ describe('Delete Category [e2e]', () => {
       name: 'comida',
       type: 'spent',
     })
+
     const category2 = await categoryFactory.makePrismaCategory({
       userId: user.id,
       name: 'comida',
@@ -93,12 +95,31 @@ describe('Delete Category [e2e]', () => {
     })
 
     const response1 = await request(app.getHttpServer())
-      .delete(
-        `/category/delete?category_id=${category.id.toString()}&user_id=${user.id.toValue()}&delete_remembers=${false}&delete_transactions=${false}`,
-      )
+      .delete('/category/delete')
+      .query({
+        category_id: category.id.toString(),
+        user_id: user.id.toValue(),
+        delete_remembers: false,
+        delete_transactions: false,
+      })
       .set('Authorization', `Bearer ${accessToken}`)
 
     expect(response1.statusCode).toBe(204)
     expect(await prisma.reminder.findMany()).toHaveLength(2)
+    expect(await prisma.transaction.findMany()).toHaveLength(2)
+
+    const response2 = await request(app.getHttpServer())
+      .delete('/category/delete')
+      .query({
+        category_id: category2.id.toString(),
+        user_id: user.id.toValue(),
+        delete_remembers: true,
+        delete_transactions: true,
+      })
+      .set('Authorization', `Bearer ${accessToken}`)
+
+    expect(response2.statusCode).toBe(204)
+    expect(await prisma.reminder.findMany()).toHaveLength(1)
+    expect(await prisma.transaction.findMany()).toHaveLength(1)
   })
 })

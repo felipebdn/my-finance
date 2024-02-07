@@ -48,12 +48,18 @@ export class DeleteCategoryUseCase {
 
     await this.t.run(async () => {
       if (deleteReminders) {
-        await this.reminderRepository.deleteManyByCategoryId(categoryId)
+        await this.reminderRepository.deleteManyByCategoryId(
+          categoryId,
+          transactionKey,
+        )
       }
       if (deleteTransactions) {
-        await this.transactionRepository.deleteManyByCategoryId(categoryId)
+        await this.transactionRepository.deleteManyByCategoryId(
+          categoryId,
+          transactionKey,
+        )
       }
-      await this.categoryRepository.delete(category)
+      await this.categoryRepository.delete(category, transactionKey)
     }, transactionKey)
 
     return right({})

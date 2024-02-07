@@ -20,8 +20,12 @@ import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 const deleteCategoryQuerySchema = z.object({
   category_id: z.string(),
   user_id: z.string(),
-  delete_remembers: z.coerce.boolean(),
-  delete_transactions: z.coerce.boolean(),
+  delete_remembers: z
+    .enum(['true', 'false'])
+    .transform((value) => value === 'true'),
+  delete_transactions: z
+    .enum(['true', 'false'])
+    .transform((value) => value === 'true'),
 })
 
 const deleteCategoryBodySchemaPipe = new ZodValidationPipe(
@@ -40,8 +44,6 @@ export class DeleteCategoryController {
   async handle(
     @Query(deleteCategoryBodySchemaPipe) query: CategoryQuerySchemaType,
   ) {
-    console.log(query)
-
     const result = await this.deleteCategory.execute({
       categoryId: query.category_id,
       deleteReminders: query.delete_remembers,

@@ -31,8 +31,8 @@ export function makeTransfer(
 @Injectable()
 export class TransferFactory {
   constructor(private prisma: PrismaService) {}
-  async makePrismaTransfer(data: Partial<TransferProps>) {
-    const transfer = makeTransfer(data)
+  async makePrismaTransfer(data: Partial<TransferProps>, id?: UniqueEntityId) {
+    const transfer = makeTransfer(data, id)
     await this.prisma.transfer.create({
       data: PrismaTransferMapper.toPrisma(transfer),
     })
