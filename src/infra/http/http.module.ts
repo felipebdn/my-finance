@@ -5,6 +5,7 @@ import { CreateAccountUseCase } from '@/domain/finance/application/use-cases/cre
 import { CreateCategoryUseCase } from '@/domain/finance/application/use-cases/create-category-use-case'
 import { DeleteCategoryUseCase } from '@/domain/finance/application/use-cases/delete-category-use-case'
 import { EditCategoryUseCase } from '@/domain/finance/application/use-cases/edit-category-use-case'
+import { EditReminderUseCase } from '@/domain/finance/application/use-cases/edit-reminder-use-case'
 import { GetResumeUseCase } from '@/domain/finance/application/use-cases/get-resume-accounts-use-case'
 import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/get-transaction-use-case'
 import { ListRemindersUseCase } from '@/domain/finance/application/use-cases/list-reminders-use-case'
@@ -20,6 +21,7 @@ import { AuthenticateController } from './controllers/authenticate-controller'
 import { CreateAccountController } from './controllers/create-account-controller'
 import { DeleteCategoryController } from './controllers/delete-category-controller'
 import { EditCategoryController } from './controllers/edit-category-controller'
+import { EditReminderController } from './controllers/edit-reminder-controller'
 import { GetResumeController } from './controllers/get-resume-account-controller'
 import { ListRemindersController } from './controllers/list-reminders-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
@@ -45,6 +47,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     CreateCategoryUseCase,
     EditCategoryUseCase,
     DeleteCategoryUseCase,
+    EditReminderUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -59,6 +62,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     NewCategoryController,
     EditCategoryController,
     DeleteCategoryController,
+    EditReminderController,
   ],
 })
 export class HttpModule {}
