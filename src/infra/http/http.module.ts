@@ -7,6 +7,7 @@ import { DeleteCategoryUseCase } from '@/domain/finance/application/use-cases/de
 import { DeleteReminderUseCase } from '@/domain/finance/application/use-cases/delete-reminder-use-case'
 import { EditCategoryUseCase } from '@/domain/finance/application/use-cases/edit-category-use-case'
 import { EditReminderUseCase } from '@/domain/finance/application/use-cases/edit-reminder-use-case'
+import { EditTransactionUseCase } from '@/domain/finance/application/use-cases/edit-transaction-use-case'
 import { GetResumeUseCase } from '@/domain/finance/application/use-cases/get-resume-accounts-use-case'
 import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/get-transaction-use-case'
 import { ListRemindersUseCase } from '@/domain/finance/application/use-cases/list-reminders-use-case'
@@ -24,6 +25,7 @@ import { DeleteCategoryController } from './controllers/delete-category-controll
 import { DeleteReminderController } from './controllers/delete-reminder-controller'
 import { EditCategoryController } from './controllers/edit-category-controller'
 import { EditReminderController } from './controllers/edit-reminder-controller'
+import { EditTransactionsController } from './controllers/edit-transaction-controller'
 import { GetResumeController } from './controllers/get-resume-account-controller'
 import { ListRemindersController } from './controllers/list-reminders-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
@@ -51,6 +53,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     DeleteCategoryUseCase,
     EditReminderUseCase,
     DeleteReminderUseCase,
+    EditTransactionUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -67,6 +70,7 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     DeleteCategoryController,
     EditReminderController,
     DeleteReminderController,
+    EditTransactionsController,
   ],
 })
 export class HttpModule {}

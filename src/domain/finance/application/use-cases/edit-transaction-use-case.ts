@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 
 import { Either, left, right } from '@/core/either'
@@ -30,7 +31,7 @@ type EditTransactionUseCaseResponse = Either<
     transaction: Transaction
   }
 >
-
+@Injectable()
 export class EditTransactionUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
