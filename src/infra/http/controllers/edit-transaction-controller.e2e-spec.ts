@@ -29,7 +29,6 @@ describe('Edit Transaction [e2e]', () => {
   let user: User
   let account: Account
   let depositCategory: Category
-  let spentCategory: Category
   let accessToken: string
 
   beforeEach(async () => {
@@ -61,10 +60,6 @@ describe('Edit Transaction [e2e]', () => {
     depositCategory = await categoryFactory.makePrismaCategory({
       userId: user.id,
       type: 'deposit',
-    })
-    spentCategory = await categoryFactory.makePrismaCategory({
-      userId: user.id,
-      type: 'spent',
     })
 
     accessToken = jwt.sign({

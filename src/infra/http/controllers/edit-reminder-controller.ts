@@ -8,7 +8,6 @@ import {
   Put,
   UnauthorizedException,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common'
 import { z } from 'zod'
 
