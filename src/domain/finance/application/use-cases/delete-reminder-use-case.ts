@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
@@ -9,8 +11,12 @@ interface DeleteReminderUseCaseRequest {
   reminderId: string
 }
 
-type DeleteReminderUseCaseResponse = Either<unknown, unknown>
+type DeleteReminderUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  unknown
+>
 
+@Injectable()
 export class DeleteReminderUseCase {
   constructor(private reminderRepository: ReminderRepository) {}
 
