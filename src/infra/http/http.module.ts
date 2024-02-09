@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { AuthenticateUserUseCase } from '@/domain/finance/application/use-cases/authenticate-user-use-case'
 import { CreateAccountUseCase } from '@/domain/finance/application/use-cases/create-account-use-case'
 import { CreateCategoryUseCase } from '@/domain/finance/application/use-cases/create-category-use-case'
+import { DeleteAccountUseCase } from '@/domain/finance/application/use-cases/delete-account-use-case'
 import { DeleteCategoryUseCase } from '@/domain/finance/application/use-cases/delete-category-use-case'
 import { DeleteReminderUseCase } from '@/domain/finance/application/use-cases/delete-reminder-use-case'
 import { DeleteTransactionUseCase } from '@/domain/finance/application/use-cases/delete-transaction-use-case'
@@ -14,6 +15,7 @@ import { GetResumeUseCase } from '@/domain/finance/application/use-cases/get-res
 import { GetTransactionUseCase } from '@/domain/finance/application/use-cases/get-transaction-use-case'
 import { ListRemindersUseCase } from '@/domain/finance/application/use-cases/list-reminders-use-case'
 import { ListTransactionWithFilterUserCase } from '@/domain/finance/application/use-cases/list-transactions-by-type-use-case'
+import { ListTransfersUseCase } from '@/domain/finance/application/use-cases/list-transfers-use-case'
 import { NewDepositUseCase } from '@/domain/finance/application/use-cases/new-deposit-use-case'
 import { NewReminderUseCase } from '@/domain/finance/application/use-cases/new-reminder-use-case'
 import { NewSpentUseCase } from '@/domain/finance/application/use-cases/new-spent-use-case'
@@ -23,6 +25,7 @@ import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
 import { AuthenticateController } from './controllers/authenticate-controller'
 import { CreateAccountController } from './controllers/create-account-controller'
+import { DeleteAccountController } from './controllers/delete-account-controller'
 import { DeleteCategoryController } from './controllers/delete-category-controller'
 import { DeleteReminderController } from './controllers/delete-reminder-controller'
 import { DeleteTransactionsController } from './controllers/delete-transaction-controller'
@@ -31,6 +34,7 @@ import { EditCategoryController } from './controllers/edit-category-controller'
 import { EditReminderController } from './controllers/edit-reminder-controller'
 import { EditTransactionsController } from './controllers/edit-transaction-controller'
 import { GetResumeController } from './controllers/get-resume-account-controller'
+import { ListHistoryTransferController } from './controllers/list-history-transfer-controller'
 import { ListRemindersController } from './controllers/list-reminders-controller'
 import { ListTransactionsByTypeController } from './controllers/list-transactions-by-type-controller'
 import { NewCategoryController } from './controllers/new-category-controller'
@@ -60,6 +64,8 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     EditTransactionUseCase,
     DeleteTransactionUseCase,
     EditAccountUseCase,
+    DeleteAccountUseCase,
+    ListTransfersUseCase,
   ],
   controllers: [
     AuthenticateController,
@@ -79,6 +85,8 @@ import { ViewTransactionController } from './controllers/view-transaction-contro
     EditTransactionsController,
     DeleteTransactionsController,
     EditAccountController,
+    DeleteAccountController,
+    ListHistoryTransferController,
   ],
 })
 export class HttpModule {}

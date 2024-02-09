@@ -59,9 +59,18 @@ export class PrismaTransferRepository implements TransferRepository {
         AND: [
           { userId },
           {
-            id: {
-              in: ids,
-            },
+            OR: [
+              {
+                destinyId: {
+                  in: ids,
+                },
+              },
+              {
+                referentId: {
+                  in: ids,
+                },
+              },
+            ],
           },
           {
             date: {

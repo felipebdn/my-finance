@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto'
 
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
@@ -21,7 +23,7 @@ type DeleteAccountUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
   unknown
 >
-
+@Injectable()
 export class DeleteAccountUseCase {
   constructor(
     private accountRepository: AccountRepository,
@@ -54,16 +56,19 @@ export class DeleteAccountUseCase {
       deleteReminder &&
         (await this.reminderRepository.deleteManyByAccountId(
           account.id.toValue(),
+          transactionKey,
         ))
 
       deleteTransaction &&
         (await this.transactionRepository.deleteManyByAccountId(
           account.id.toValue(),
+          transactionKey,
         ))
 
       deleteTransfer &&
         (await this.transferRepository.deleteManyByAccountId(
           account.id.toValue(),
+          transactionKey,
         ))
 
       await this.accountRepository.delete(account)

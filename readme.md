@@ -13,8 +13,8 @@
 - [x] O usuário pode apagar um lembrete de pagamento.
 - [x] O usuário pode editar uma transação.
 - [x] O usuário pode apagar uma transação.
-- [ ] O usuário pode apagar uma conta criada.
-- [ ] O usuário pode visualizar o histórico de transferências.
+- [x] O usuário pode apagar uma conta criada.
+- [x] O usuário pode visualizar o histórico de transferências.
 - [ ] O usuário pode apagar uma transferência.
 - [ ] O usuário pode listar todas as transações de determinada categoria.
 - [ ] O usuário pode se cadastrar na aplicação.

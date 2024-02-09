@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
 
 import { Transfer } from '../../enterprise/entities/transfer'
@@ -17,6 +19,7 @@ type ListTransfersUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class ListTransfersUseCase {
   constructor(private transferRepository: TransferRepository) {}
 
