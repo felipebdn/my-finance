@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
@@ -21,6 +23,7 @@ type ListTransactionByCategoryUseCaseResponse = Either<
   { transactions: Transaction[] }
 >
 
+@Injectable()
 export class ListTransactionByCategoryUseCase {
   constructor(
     private transactionRepository: TransactionRepository,
