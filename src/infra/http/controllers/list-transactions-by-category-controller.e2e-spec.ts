@@ -10,11 +10,9 @@ import { configureSession } from 'test/utils/test-utils'
 
 import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { EnvService } from '@/infra/env/env.service'
 
 describe('List Transactions By Type [e2e]', () => {
-  let prisma: PrismaService
   let app: INestApplication
   let userFactory: UserFactory
   let accountFactory: AccountFactory
@@ -36,7 +34,6 @@ describe('List Transactions By Type [e2e]', () => {
 
     app = moduleRef.createNestApplication()
 
-    prisma = moduleRef.get(PrismaService)
     userFactory = moduleRef.get(UserFactory)
     accountFactory = moduleRef.get(AccountFactory)
     categoryFactory = moduleRef.get(CategoryFactory)
