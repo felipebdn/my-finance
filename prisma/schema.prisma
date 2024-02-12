@@ -129,9 +129,21 @@ model Reminder {
   accountId  String? @map("account_id")
   categoryId String? @map("category_id")
 
-  user     User      @relation(fields: [userId], references: [id])
-  account  Account?  @relation(fields: [accountId], references: [id])
-  category Category? @relation(fields: [categoryId], references: [id])
+  user         User           @relation(fields: [userId], references: [id])
+  account      Account?       @relation(fields: [accountId], references: [id])
+  category     Category?      @relation(fields: [categoryId], references: [id])
+  Notification Notification[]
 
   @@map("reminders")
+}
+
+model Notification {
+  id         String @id @default(uuid())
+  title      String
+  content    String
+  reminderId String @map("reminder_id")
+
+  reminder Reminder @relation(fields: [reminderId], references: [id])
+
+  @@map("notifications")
 }

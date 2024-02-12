@@ -1,9 +1,12 @@
+import { Injectable } from '@nestjs/common'
+
 import { DomainEvents } from '@/core/events/domain-events'
 import { EventHandler } from '@/core/events/event-handler'
 import { RememberIfEvent } from '@/domain/finance/enterprise/events/remember-if-event'
 
 import { SendNotificationUseCase } from '../use-cases/send-notification-use-case'
 
+@Injectable()
 export class OnReminderCreated implements EventHandler {
   constructor(private sendNotification: SendNotificationUseCase) {
     this.setupSubscriptions()
